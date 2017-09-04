@@ -11,8 +11,10 @@ import GameplayKit
 
 class GameScene: SKScene {
     
-    var numberOfSquares = 7
-    var sizeOfSquares : CGFloat = 50
+    var numberOfSquares = 8
+    let sizeOfSquaresMinor : CGFloat = 49
+
+    let sizeOfSquares : CGFloat = 50
     
     var entities = [GKEntity]()
     var graphs = [String : GKGraph]()
@@ -35,19 +37,19 @@ class GameScene: SKScene {
         self.finalPosition = CGPoint(x: self.width/2, y: finalHeight)
         self.lastUpdateTime = 0
         
-        let initialPosition = SKSpriteNode(color: .blue, size: CGSize.init(width: sizeOfSquares/2, height: sizeOfSquares/2))
+        let initialPosition = SKSpriteNode(color: .blue, size: CGSize.init(width: sizeOfSquaresMinor/2, height: sizeOfSquaresMinor/2))
         initialPosition.position = CGPoint(x: -self.width / 2, y: startHeight)
         self.addChild(initialPosition)
         
-        let finalPosition = SKSpriteNode(color: .blue, size: CGSize.init(width: sizeOfSquares/2, height: sizeOfSquares/2))
+        let finalPosition = SKSpriteNode(color: .blue, size: CGSize.init(width: sizeOfSquaresMinor/2, height: sizeOfSquaresMinor/2))
         finalPosition.position = CGPoint(x: self.width / 2, y: finalHeight)
         self.addChild(finalPosition)
 
         
         
         //Generating random sprites
-        for _ in 0...numberOfSquares {
-            let colorSprite = SKSpriteNode(color: .red, size: CGSize.init(width: sizeOfSquares, height: sizeOfSquares))
+        for _ in 0..<numberOfSquares {
+            let colorSprite = SKSpriteNode(color: .red, size: CGSize.init(width: sizeOfSquaresMinor, height: sizeOfSquaresMinor))
             
             var position : CGPoint = getRandomPosition()
             
@@ -71,13 +73,86 @@ class GameScene: SKScene {
             
             self.vertices.append(contentsOf: vertices)
 
-            colorSprite.run(SKAction.fadeIn(withDuration: 2))
+//            colorSprite.run(SKAction.fadeIn(withDuration: 2))
             self.addChild(colorSprite)
             self.squareNodes.append(colorSprite)
+            
         }
+        
+        self.sucessor(ofPoint: initialPosition.position)
         
         
     
+    }
+    
+    func sucessor(ofPoint point : CGPoint) -> CGPoint {
+        
+        for square in self.squareNodes {
+            
+            let vertices = [
+                CGPoint(x: square.position.x - self.sizeOfSquares/2, y: square.position.y - self.sizeOfSquares/2),
+                CGPoint(x: square.position.x + self.sizeOfSquares/2, y: square.position.y - self.sizeOfSquares/2),
+                CGPoint(x: square.position.x - self.sizeOfSquares/2, y: square.position.y + self.sizeOfSquares/2),
+                CGPoint(x: square.position.x + self.sizeOfSquares/2, y: square.position.y + self.sizeOfSquares/2)]
+            
+            for newPoint in vertices {
+                
+                let path = CGMutablePath()
+                path.move(to: point)
+                path.addLine(to: newPoint)
+                
+                let shape = SKShapeNode()
+                shape.path = path
+                shape.strokeColor = UIColor.red
+                shape.lineWidth = 1
+                
+                let intersectionSquares = self.squareNodes.filter({ (node) -> Bool in
+                    return node.intersects(SKShapeNode(path: path))
+                })
+                
+                if intersectionSquares.isEmpty {
+                    shape.zPosition = 99
+                    self.addChild(shape)
+                }
+                
+
+                
+            }
+        }
+        
+//        for newPoint in self.vertices {
+//            
+//            
+//            let intersectionSquares = self.squareNodes.filter({ (node) -> Bool in
+//                
+//                
+//                
+//            })
+//                
+//            if intersectionSquares.count <= 0 {
+//               
+//            } else {
+//                
+////                if intersectionSquares.count == 1 {
+////                    shape.strokeColor = .yellow
+////                } else if intersectionSquares.count == 2 {
+////                    shape.strokeColor = .cyan
+////                } else if intersectionSquares.count >= 3 {
+////                    shape.strokeColor = .blue
+////                }
+////                shape.zPosition = -1
+////                self.addChild(shape)
+//
+//            }
+//
+//            
+//            
+//        }
+//        
+//        
+//        
+        return CGPoint(x: 500, y: 500)
+
     }
     
     func getRandomPosition() -> CGPoint {
