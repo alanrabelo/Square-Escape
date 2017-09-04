@@ -11,8 +11,8 @@ import GameplayKit
 
 class GameScene: SKScene {
     
-    var numberOfSquares = 10
-    let sizeOfSquaresMinor : CGFloat = 15
+    var numberOfSquares = 5
+    let sizeOfSquaresMinor : CGFloat = 49
 
     let sizeOfSquares : CGFloat = 50
     
@@ -91,92 +91,87 @@ class GameScene: SKScene {
             self.squareNodes.append(colorSprite)
         }
         
-        self.sucessor(ofPoint: initialPosition.position)
-
+        sucessor(ofPoint: initialPosition.position)
+        
 
     }
     
-    func sucessor(ofPoint point : CGPoint) -> CGPoint {
+    func sucessor(ofPoint newPoint : CGPoint) {
         
-
+        for destination in self.vertices {
             
-            for newPoint in self.vertices {
+            var intersections = [CGPoint]()
+            
+            for square in squareNodes {
                 
-
-                let path = UIBezierPath()
-                    
-                    //CGMutablePath()
-                path.move(to: point)
-                path.addLine(to: newPoint)
+                let point1 = CGPoint(x: square.position.x - self.sizeOfSquares/2, y: square.position.y - self.sizeOfSquares/2)
+                let point2 = CGPoint(x: square.position.x + self.sizeOfSquares/2, y: square.position.y - self.sizeOfSquares/2)
+                let point3 = CGPoint(x: square.position.x - self.sizeOfSquares/2, y: square.position.y + self.sizeOfSquares/2)
+                let point4 = CGPoint(x: square.position.x + self.sizeOfSquares/2, y: square.position.y + self.sizeOfSquares/2)
                 
-                let intersectionSquares = self.squareNodes.filter({ (node) -> Bool in
-                    
-                    var triangle = SKShapeNode()
-                    triangle.path = path.cgPath
-                    triangle.lineWidth = 2.0
-
-                    
-                    return node.intersects(triangle)
-                })
+                let squareLines = [(point1, point2), (point2, point3), (point3, point4), (point4, point1)]
                 
-                if !intersectionSquares.isEmpty {
-                    print("from \(point) to \(newPoint) passes through \(intersectionSquares.first!.position)")
+                for line in squareLines {
                     
+                    let intersection = getIntersectionOfLines(line1: (newPoint, destination), line2: line)
+                    if intersection != CGPoint.zero {
+                        intersections.append(intersection)
+                    }
                 }
                 
-                if intersectionSquares.count <= 0 {
-                    let shape = SKShapeNode()
-                    shape.path = path.cgPath
-                    shape.strokeColor = UIColor.red
-                    shape.lineWidth = 1
-                    shape.zPosition = 99
-                    self.addChild(shape)
-                } else {
-                    let shape = SKShapeNode()
-                    shape.path = path.cgPath
-                    shape.strokeColor = UIColor.blue
-                    shape.lineWidth = 1
-                    shape.zPosition = -1
-                    self.addChild(shape)
-                }
+                
+            }
+            
+            
+            
+            if intersections.count < 3 {
+                let path = CGMutablePath()
+                path.move(to: initialPosition.position)
+                path.addLine(to: destination)
+                
+                let shape = SKShapeNode()
+                shape.path = path
+                shape.strokeColor = UIColor.red
+                shape.lineWidth = 2
+                addChild(shape)
+                
+            }
             
         }
         
-//        for newPoint in self.vertices {
-//            
-//            
-//            let intersectionSquares = self.squareNodes.filter({ (node) -> Bool in
-//                
-//                
-//                
-//            })
-//                
-//            if intersectionSquares.count <= 0 {
-//               
-//            } else {
-//                
-////                if intersectionSquares.count == 1 {
-////                    shape.strokeColor = .yellow
-////                } else if intersectionSquares.count == 2 {
-////                    shape.strokeColor = .cyan
-////                } else if intersectionSquares.count >= 3 {
-////                    shape.strokeColor = .blue
-////                }
-////                shape.zPosition = -1
-////                self.addChild(shape)
-//
-//            }
-//
-//            
-//            
-//        }
-//        
-//        
-//        
-        return CGPoint(x: 500, y: 500)
-
+        
+        
     }
     
+    func getIntersectionOfLines(line1: (a: CGPoint, b: CGPoint), line2: (a: CGPoint, b: CGPoint)) -> CGPoint {
+        
+        let line1Translated = (a: CGPoint(x: line1.a.x + (self.width / 2), y: line1.a.y + (self.heigth / 2)),
+                               b: CGPoint(x: line1.b.x + (self.width / 2), y: line1.b.y + (self.heigth / 2)))
+            
+        let line2Translated = (a: CGPoint(x: line2.a.x + (self.width / 2), y: line2.a.y + (self.heigth / 2)),
+                               b: CGPoint(x: line2.b.x + (self.width / 2), y: line2.b.y + (self.heigth / 2)))
+            //line1.a + self.width / 2, line1.b + self.heigth / 2)
+//        let line2Translated = (line2.a + self.width / 2, line2.b + self.heigth / 2)
+
+        
+        let distance = (line1Translated.b.x - line1Translated.a.x) * (line2Translated.b.y - line2Translated.a.y) - (line1Translated.b.y - line1Translated.a.y) * (line2Translated.b.x - line2Translated.a.x)
+        if distance == 0 {
+            print("error, parallel lines")
+            return CGPoint.zero
+        }
+        
+        let u = ((line2Translated.a.x - line1Translated.a.x) * (line2Translated.b.y - line2Translated.a.y) - (line2Translated.a.y - line1Translated.a.y) * (line2Translated.b.x - line2Translated.a.x)) / distance
+        let v = ((line2Translated.a.x - line1Translated.a.x) * (line1Translated.b.y - line1Translated.a.y) - (line2Translated.a.y - line1Translated.a.y) * (line1Translated.b.x - line1Translated.a.x)) / distance
+        
+        if (u < 0.0 || u > 1.0) {
+            return CGPoint.zero
+        }
+        if (v < 0.0 || v > 1.0) {
+            return CGPoint.zero
+        }
+        
+        return CGPoint(x: line1Translated.a.x + u * (line1Translated.b.x - line1Translated.a.x), y: line1Translated.a.y + u * (line1Translated.b.y - line1Translated.a.y))
+    }
     
     
     func getRandomPosition() -> CGPoint {
