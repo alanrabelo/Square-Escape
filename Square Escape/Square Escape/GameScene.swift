@@ -11,8 +11,8 @@ import GameplayKit
 
 class GameScene: SKScene {
     
-    var numberOfSquares = 5
-    let sizeOfSquaresMinor : CGFloat = 49
+    var numberOfSquares = 10
+    let sizeOfSquaresMinor : CGFloat = 50
 
     let sizeOfSquares : CGFloat = 50
     
@@ -48,6 +48,10 @@ class GameScene: SKScene {
         self.startHeight = CGFloat(arc4random_uniform((UInt32(self.heigth - self.heigth/2))))
         self.finalHeight = CGFloat(arc4random_uniform((UInt32(self.heigth - self.heigth/2))))
         self.finalPosition = CGPoint(x: self.width/2, y: finalHeight)
+        self.vertices.append(self.finalPosition)
+        
+        print(self.finalPosition)
+
         self.lastUpdateTime = 0
         
         self.initialPosition = SKSpriteNode(color: .blue, size: CGSize.init(width: sizeOfSquaresMinor/2, height: sizeOfSquaresMinor/2))
@@ -91,12 +95,14 @@ class GameScene: SKScene {
             self.squareNodes.append(colorSprite)
         }
         
-        sucessor(ofPoint: initialPosition.position)
+        print(sucessor(ofPoint: initialPosition.position))
         
 
     }
     
-    func sucessor(ofPoint newPoint : CGPoint) {
+    func sucessor(ofPoint newPoint : CGPoint) -> [CGPoint] {
+        
+        var selectedDestinations = [CGPoint]()
         
         for destination in self.vertices {
             
@@ -115,16 +121,18 @@ class GameScene: SKScene {
                     
                     let intersection = getIntersectionOfLines(line1: (newPoint, destination), line2: line)
                     if intersection != CGPoint.zero {
-                        intersections.append(intersection)
+                        
+                        if !intersections.contains(intersection) {
+                            intersections.append(intersection)
+                        }
                     }
                 }
                 
                 
             }
             
-            
-            
-            if intersections.count < 3 {
+            if intersections.count <= 1 {
+                
                 let path = CGMutablePath()
                 path.move(to: initialPosition.position)
                 path.addLine(to: destination)
@@ -134,11 +142,24 @@ class GameScene: SKScene {
                 shape.strokeColor = UIColor.red
                 shape.lineWidth = 2
                 addChild(shape)
-                
+                selectedDestinations.append(destination)
             }
             
         }
         
+        let sortedDestinations = selectedDestinations.sorted(by: { (point1, point2) -> Bool in
+            
+            let distance1 = pow(point1.x - finalPosition.x, 2) + pow(point1.y - finalPosition.y, 2)
+            let distance2 = pow(point2.x - finalPosition.x, 2) + pow(point2.y - finalPosition.y, 2)
+            
+            return distance1 < distance2
+        })
+        
+        if sortedDestinations.first == self.finalPosition {
+            print("You Found it")
+        }
+        
+        return sortedDestinations
         
         
     }
@@ -179,6 +200,8 @@ class GameScene: SKScene {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        
         self.addSquares(withCount: 10)
     }
     override func update(_ currentTime: TimeInterval) {
