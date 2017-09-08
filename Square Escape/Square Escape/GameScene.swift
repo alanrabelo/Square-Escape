@@ -11,10 +11,10 @@ import GameplayKit
 
 class GameScene: SKScene {
     
-    var numberOfSquares = 10
-    let sizeOfSquaresMinor : CGFloat = 50
+    var numberOfSquares = 5
+    let sizeOfSquaresMinor : CGFloat = 100
 
-    let sizeOfSquares : CGFloat = 50
+    let sizeOfSquares : CGFloat = 100
     
     var entities = [GKEntity]()
     var graphs = [String : GKGraph]()
@@ -27,6 +27,8 @@ class GameScene: SKScene {
     var vertices = [CGPoint]()
     var finalPosition : CGPoint!
     var initialPosition : SKSpriteNode!
+    var fringe = Queue<CGPoint>()
+    var tempLineNodes = [SKShapeNode]()
     
     override func sceneDidLoad() {
 
@@ -35,10 +37,18 @@ class GameScene: SKScene {
         self.heigth = self.size.height - 100
         
         self.addSquares(withCount: self.numberOfSquares)
+        
+
 
     }
     
+    
+    
     func addSquares(withCount count : Int) {
+        
+        if !squareNodes.isEmpty {
+            return
+        }
         
         self.squareNodes.removeAll()
         self.vertices.removeAll()
@@ -56,6 +66,8 @@ class GameScene: SKScene {
         
         self.initialPosition = SKSpriteNode(color: .blue, size: CGSize.init(width: sizeOfSquaresMinor/2, height: sizeOfSquaresMinor/2))
         initialPosition.position = CGPoint(x: -self.width / 2, y: startHeight)
+        print("The start Heigth é \(startHeight)")
+        self.fringe.enqueue([initialPosition.position])
         self.addChild(initialPosition)
         
         let finalPosition = SKSpriteNode(color: .blue, size: CGSize.init(width: sizeOfSquaresMinor/2, height: sizeOfSquaresMinor/2))
@@ -95,12 +107,12 @@ class GameScene: SKScene {
             self.squareNodes.append(colorSprite)
         }
         
-        print(sucessor(ofPoint: initialPosition.position))
         
 
     }
     
     func sucessor(ofPoint newPoint : CGPoint) -> [CGPoint] {
+        
         
         var selectedDestinations = [CGPoint]()
         
@@ -131,24 +143,45 @@ class GameScene: SKScene {
                 
             }
             
-            if intersections.count <= 1 {
-                
+//            removeChildren(in: self.tempLineNodes)
+            
+            print(newPoint)
+            print(self.initialPosition)
+
+            if (intersections.count <= 1 && self.initialPosition.position == newPoint) {
                 let path = CGMutablePath()
-                path.move(to: initialPosition.position)
+                path.move(to: newPoint)
                 path.addLine(to: destination)
                 
                 let shape = SKShapeNode()
                 shape.path = path
-                shape.strokeColor = UIColor.red
+                shape.strokeColor = UIColor.green
                 shape.lineWidth = 2
                 addChild(shape)
                 selectedDestinations.append(destination)
+                self.tempLineNodes.append(shape)
+            }
+            
+            if (intersections.count <= 3 && self.initialPosition.position != newPoint && self.finalPosition != newPoint)  {
+                
+                let path = CGMutablePath()
+                path.move(to: newPoint)
+                path.addLine(to: destination)
+                
+                let shape = SKShapeNode()
+                shape.path = path
+                shape.strokeColor = UIColor.green
+                shape.lineWidth = 2
+                addChild(shape)
+                selectedDestinations.append(destination)
+                self.tempLineNodes.append(shape)
             }
             
         }
         
         let sortedDestinations = selectedDestinations.sorted(by: { (point1, point2) -> Bool in
             
+            return true
             let distance1 = pow(point1.x - finalPosition.x, 2) + pow(point1.y - finalPosition.y, 2)
             let distance2 = pow(point2.x - finalPosition.x, 2) + pow(point2.y - finalPosition.y, 2)
             
@@ -201,11 +234,14 @@ class GameScene: SKScene {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        
-        self.addSquares(withCount: 10)
+        if let currentPoint = fringe.dequeue() {
+            fringe.enqueue(sucessor(ofPoint: currentPoint))
+            
+        }
+
     }
+    
     override func update(_ currentTime: TimeInterval) {
         
-
     }
 }
