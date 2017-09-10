@@ -11,10 +11,11 @@ import GameplayKit
 
 class GameScene: SKScene {
     
-    var numberOfSquares = 5
-    let sizeOfSquaresMinor : CGFloat = 100
+    var gameViewController : GameViewController!
+    var numberOfSquares = 8
+    let sizeOfSquaresMinor : CGFloat = 50
 
-    let sizeOfSquares : CGFloat = 100
+    let sizeOfSquares : CGFloat = 51
     
     var entities = [GKEntity]()
     var graphs = [String : GKGraph]()
@@ -32,9 +33,10 @@ class GameScene: SKScene {
     
     override func sceneDidLoad() {
 
-        
-        self.width = self.size.width - 100
-        self.heigth = self.size.height - 100
+        // -200 is added for a safety distance to initial and final positions
+
+        self.width = self.size.width - 200
+        self.heigth = self.size.height - 200
         
         self.addSquares(withCount: self.numberOfSquares)
         
@@ -57,7 +59,7 @@ class GameScene: SKScene {
         }
         self.startHeight = CGFloat(arc4random_uniform((UInt32(self.heigth - self.heigth/2))))
         self.finalHeight = CGFloat(arc4random_uniform((UInt32(self.heigth - self.heigth/2))))
-        self.finalPosition = CGPoint(x: self.width/2, y: finalHeight)
+        self.finalPosition = CGPoint(x: (self.width/2) + 50, y: finalHeight)
         self.vertices.append(self.finalPosition)
         
         print(self.finalPosition)
@@ -65,13 +67,13 @@ class GameScene: SKScene {
         self.lastUpdateTime = 0
         
         self.initialPosition = SKSpriteNode(color: .blue, size: CGSize.init(width: sizeOfSquaresMinor/2, height: sizeOfSquaresMinor/2))
-        initialPosition.position = CGPoint(x: -self.width / 2, y: startHeight)
-        print("The start Heigth é \(startHeight)")
+        initialPosition.position = CGPoint(x: (-self.width / 2) - 50 , y: startHeight)
+
         self.fringe.enqueue([initialPosition.position])
         self.addChild(initialPosition)
         
         let finalPosition = SKSpriteNode(color: .blue, size: CGSize.init(width: sizeOfSquaresMinor/2, height: sizeOfSquaresMinor/2))
-        finalPosition.position = CGPoint(x: self.width / 2, y: finalHeight)
+        finalPosition.position = self.finalPosition
         self.addChild(finalPosition)
         
         
@@ -113,6 +115,11 @@ class GameScene: SKScene {
     
     func sucessor(ofPoint newPoint : CGPoint) -> [CGPoint] {
         
+        // Removing all nodes in an array of all lines drawn
+        for node in tempLineNodes {
+            node.removeFromParent()
+        }
+        tempLineNodes.removeAll()
         
         var selectedDestinations = [CGPoint]()
         
@@ -132,6 +139,7 @@ class GameScene: SKScene {
                 for line in squareLines {
                     
                     let intersection = getIntersectionOfLines(line1: (newPoint, destination), line2: line)
+                    
                     if intersection != CGPoint.zero {
                         
                         if !intersections.contains(intersection) {
@@ -143,12 +151,9 @@ class GameScene: SKScene {
                 
             }
             
-//            removeChildren(in: self.tempLineNodes)
+  
             
-            print(newPoint)
-            print(self.initialPosition)
-
-            if (intersections.count <= 1 && self.initialPosition.position == newPoint) {
+            if (intersections.count <= 1 && self.initialPosition.position == newPoint && self.finalPosition != destination){
                 let path = CGMutablePath()
                 path.move(to: newPoint)
                 path.addLine(to: destination)
@@ -162,7 +167,7 @@ class GameScene: SKScene {
                 self.tempLineNodes.append(shape)
             }
             
-            if (intersections.count <= 3 && self.initialPosition.position != newPoint && self.finalPosition != newPoint)  {
+            if (intersections.count <= 2 && self.initialPosition.position != newPoint && self.finalPosition != newPoint) && !(destination == self.finalPosition && intersections.count == 2) {
                 
                 let path = CGMutablePath()
                 path.move(to: newPoint)
@@ -181,7 +186,6 @@ class GameScene: SKScene {
         
         let sortedDestinations = selectedDestinations.sorted(by: { (point1, point2) -> Bool in
             
-            return true
             let distance1 = pow(point1.x - finalPosition.x, 2) + pow(point1.y - finalPosition.y, 2)
             let distance2 = pow(point2.x - finalPosition.x, 2) + pow(point2.y - finalPosition.y, 2)
             
@@ -189,11 +193,30 @@ class GameScene: SKScene {
         })
         
         if sortedDestinations.first == self.finalPosition {
+            
+//            self.gameViewController.displayWonView(false)
+//            self.restartScene()
             print("You Found it")
         }
         
         return sortedDestinations
         
+        
+    }
+    
+    func restartScene() {
+        self.vertices.removeAll()
+        self.tempLineNodes.removeAll()
+        
+        for node in self.tempLineNodes {
+            node.removeFromParent()
+        }
+        
+        for _ in 0..<self.fringe.count {
+            self.fringe.dequeue()
+        }
+        
+        self.addSquares(withCount: self.numberOfSquares)
         
     }
     
@@ -204,13 +227,11 @@ class GameScene: SKScene {
             
         let line2Translated = (a: CGPoint(x: line2.a.x + (self.width / 2), y: line2.a.y + (self.heigth / 2)),
                                b: CGPoint(x: line2.b.x + (self.width / 2), y: line2.b.y + (self.heigth / 2)))
-            //line1.a + self.width / 2, line1.b + self.heigth / 2)
-//        let line2Translated = (line2.a + self.width / 2, line2.b + self.heigth / 2)
 
         
         let distance = (line1Translated.b.x - line1Translated.a.x) * (line2Translated.b.y - line2Translated.a.y) - (line1Translated.b.y - line1Translated.a.y) * (line2Translated.b.x - line2Translated.a.x)
         if distance == 0 {
-            print("error, parallel lines")
+//            print("error, parallel lines")
             return CGPoint.zero
         }
         
@@ -229,7 +250,8 @@ class GameScene: SKScene {
     
     
     func getRandomPosition() -> CGPoint {
-        return CGPoint(x: CGFloat(arc4random_uniform(UInt32(self.width))) - self.width / 2, y: CGFloat(arc4random_uniform(UInt32(self.heigth))) - self.heigth / 2)
+        
+        return CGPoint(x: (CGFloat(arc4random_uniform(UInt32(self.width))) - (self.width / 2)), y: (CGFloat(arc4random_uniform(UInt32(self.heigth))) - self.heigth / 2))
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

@@ -12,6 +12,20 @@ import GameplayKit
 
 class GameViewController: UIViewController {
 
+    @IBOutlet weak var blurView: UIVisualEffectView!
+    @IBOutlet weak var buttonPlayAgain: UIButton!
+    
+    @IBAction func restartGame(_ sender: UIButton) {
+        displayWonView(true)
+    }
+    
+    func displayWonView(_ isHidden : Bool) {
+        self.buttonPlayAgain.isHidden = isHidden
+        self.blurView.isHidden = isHidden
+        
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -22,6 +36,8 @@ class GameViewController: UIViewController {
             // Get the SKScene from the loaded GKScene
             if let sceneNode = scene.rootNode as! GameScene? {
                 
+                sceneNode.gameViewController = self
+
                 // Copy gameplay related content over to the scene
                 sceneNode.entities = scene.entities
                 sceneNode.graphs = scene.graphs

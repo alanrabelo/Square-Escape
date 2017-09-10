@@ -1,14 +1,18 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Game View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
-                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModule="Square_Escape" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8aa-yV-Osq"/>
                         <viewControllerLayoutGuide type="bottom" id="qHh-Mt-9TT"/>
@@ -16,11 +20,87 @@
                     <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <visualEffectView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P0V-E3-XA5">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="0aW-DA-idi">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1QU-TE-gZE">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="pif-w0-CQW">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You Won!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wrk-ys-ZBN">
+                                                        <rect key="frame" x="8" y="308.5" width="359" height="50"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="6kU-85-59d"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="46"/>
+                                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="Wrk-ys-ZBN" secondAttribute="trailing" constant="8" id="CB4-40-Mif"/>
+                                                    <constraint firstItem="Wrk-ys-ZBN" firstAttribute="leading" secondItem="pif-w0-CQW" secondAttribute="leading" constant="8" id="D55-BT-oQS"/>
+                                                    <constraint firstItem="Wrk-ys-ZBN" firstAttribute="centerY" secondItem="pif-w0-CQW" secondAttribute="centerY" id="ouk-Io-iQA"/>
+                                                </constraints>
+                                            </view>
+                                            <vibrancyEffect>
+                                                <blurEffect style="extraLight"/>
+                                            </vibrancyEffect>
+                                        </visualEffectView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="1QU-TE-gZE" secondAttribute="bottom" id="4cZ-f8-bvG"/>
+                                        <constraint firstItem="1QU-TE-gZE" firstAttribute="leading" secondItem="0aW-DA-idi" secondAttribute="leading" id="i3o-ou-JfA"/>
+                                        <constraint firstItem="1QU-TE-gZE" firstAttribute="top" secondItem="0aW-DA-idi" secondAttribute="top" id="n9B-XD-BVF"/>
+                                        <constraint firstAttribute="trailing" secondItem="1QU-TE-gZE" secondAttribute="trailing" id="vRW-Lt-KnQ"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="extraLight"/>
+                            </visualEffectView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h6U-Qc-cct">
+                                <rect key="frame" x="145.5" y="370" width="85" height="45"/>
+                                <color key="backgroundColor" red="0.72549019609999998" green="0.035294117649999998" blue="0.20784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="85" id="DnM-8L-JBN"/>
+                                    <constraint firstAttribute="height" constant="45" id="Igf-6Y-uhl"/>
+                                </constraints>
+                                <state key="normal" title="Try Again">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <real key="value" value="22.5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="restartGame:" destination="BV1-FR-VrT" eventType="touchUpInside" id="saU-oU-9MS"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="P0V-E3-XA5" firstAttribute="top" secondItem="3se-qz-xqx" secondAttribute="top" id="3b2-lz-yOl"/>
+                            <constraint firstItem="P0V-E3-XA5" firstAttribute="leading" secondItem="3se-qz-xqx" secondAttribute="leading" id="62Z-rb-PIX"/>
+                            <constraint firstItem="qHh-Mt-9TT" firstAttribute="top" secondItem="P0V-E3-XA5" secondAttribute="bottom" id="DLp-2b-8GF"/>
+                            <constraint firstItem="h6U-Qc-cct" firstAttribute="centerX" secondItem="3se-qz-xqx" secondAttribute="centerX" id="DR1-1x-83P"/>
+                            <constraint firstItem="h6U-Qc-cct" firstAttribute="top" secondItem="Wrk-ys-ZBN" secondAttribute="bottom" constant="11.5" id="hzL-5A-bVX"/>
+                            <constraint firstAttribute="trailing" secondItem="P0V-E3-XA5" secondAttribute="trailing" id="vt3-8z-Nmg"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="blurView" destination="P0V-E3-XA5" id="Afe-Fz-Sw7"/>
+                        <outlet property="buttonPlayAgain" destination="h6U-Qc-cct" id="WWT-zQ-uzS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="136.80000000000001" y="135.38230884557723"/>
         </scene>
     </scenes>
 </document>
