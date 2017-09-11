@@ -8,6 +8,7 @@
 
 import SpriteKit
 import GameplayKit
+import ObjectiveC
 
 class GameScene: SKScene {
     
@@ -28,7 +29,7 @@ class GameScene: SKScene {
     var vertices = [CGPoint]()
     var finalPosition : CGPoint!
     var initialPosition : SKSpriteNode!
-    var fringe = Queue<CGPoint>()
+    var fringe = Queue<Node>()
     var tempLineNodes = [SKShapeNode]()
     
     override func sceneDidLoad() {
@@ -69,7 +70,10 @@ class GameScene: SKScene {
         self.initialPosition = SKSpriteNode(color: .blue, size: CGSize.init(width: sizeOfSquaresMinor/2, height: sizeOfSquaresMinor/2))
         initialPosition.position = CGPoint(x: (-self.width / 2) - 50 , y: startHeight)
 
-        self.fringe.enqueue([initialPosition.position])
+        
+        let no = Node.init(state: initialPosition.position)
+        
+        self.fringe.enqueue([no])
         self.addChild(initialPosition)
         
         let finalPosition = SKSpriteNode(color: .blue, size: CGSize.init(width: sizeOfSquaresMinor/2, height: sizeOfSquaresMinor/2))
@@ -113,7 +117,7 @@ class GameScene: SKScene {
 
     }
     
-    func sucessor(ofPoint newPoint : CGPoint) -> [CGPoint] {
+    func sucessor(ofPoint newPoint : Node) -> [Node] {
         
         // Removing all nodes in an array of all lines drawn
         for node in tempLineNodes {
@@ -122,10 +126,12 @@ class GameScene: SKScene {
         tempLineNodes.removeAll()
         
         var selectedDestinations = [CGPoint]()
+
         
-        for destination in self.vertices {
+        for var destination in self.vertices {
             
             var intersections = [CGPoint]()
+            
             
             for square in squareNodes {
                 
@@ -138,7 +144,7 @@ class GameScene: SKScene {
                 
                 for line in squareLines {
                     
-                    let intersection = getIntersectionOfLines(line1: (newPoint, destination), line2: line)
+                    let intersection = getIntersectionOfLines(line1: (newPoint.state, destination), line2: line)
                     
                     if intersection != CGPoint.zero {
                         
@@ -153,9 +159,9 @@ class GameScene: SKScene {
             
   
             
-            if (intersections.count <= 1 && self.initialPosition.position == newPoint && self.finalPosition != destination){
+            if (intersections.count <= 1 && self.initialPosition.position == newPoint.state && self.finalPosition != destination){
                 let path = CGMutablePath()
-                path.move(to: newPoint)
+                path.move(to: newPoint.state)
                 path.addLine(to: destination)
                 
                 let shape = SKShapeNode()
@@ -167,10 +173,10 @@ class GameScene: SKScene {
                 self.tempLineNodes.append(shape)
             }
             
-            if (intersections.count <= 2 && self.initialPosition.position != newPoint && self.finalPosition != newPoint) && !(destination == self.finalPosition && intersections.count == 2) {
+            if (intersections.count <= 2 && self.initialPosition.position != newPoint.state && self.finalPosition != newPoint.state) && !(destination == self.finalPosition && intersections.count == 2) {
                 
                 let path = CGMutablePath()
-                path.move(to: newPoint)
+                path.move(to: newPoint.state)
                 path.addLine(to: destination)
                 
                 let shape = SKShapeNode()
@@ -198,8 +204,13 @@ class GameScene: SKScene {
 //            self.restartScene()
             print("You Found it")
         }
+        var nodes = [Node]()
         
-        return sortedDestinations
+        for s in sortedDestinations{
+            nodes.append(Node.init(state: s, father: newPoint, deep: newPoint.deep+1))
+        }
+        
+        return nodes
         
         
     }
@@ -257,10 +268,36 @@ class GameScene: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         if let currentPoint = fringe.dequeue() {
-            fringe.enqueue(sucessor(ofPoint: currentPoint))
+            if currentPoint.state == self.finalPosition{
+                for node in tempLineNodes {
+                    node.removeFromParent()
+                }
+                tempLineNodes.removeAll()
+                self.getAllPath(point: currentPoint)
+            }else{
+                fringe.enqueue(sucessor(ofPoint: currentPoint))
+            }
             
         }
 
+    }
+    
+    func getAllPath(point: Node){
+        if point.father != nil {
+            print(point)
+            let path = CGMutablePath()
+            path.move(to: point.state)
+            path.addLine(to: point.father!.state)
+            
+            let shape = SKShapeNode()
+            shape.path = path
+            shape.strokeColor = UIColor.green
+            shape.lineWidth = 2
+            addChild(shape)
+            //selectedDestinations.append(destination)
+            self.tempLineNodes.append(shape)
+            getAllPath(point: point.father!)
+        }
     }
     
     override func update(_ currentTime: TimeInterval) {

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6A262C871F62DB3C00098155 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A262C861F62DB3C00098155 /* Queue.swift */; };
 		6A262C891F62DB5500098155 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A262C881F62DB5500098155 /* Stack.swift */; };
+		6A262C8B1F66C6C300098155 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A262C8A1F66C6C300098155 /* Node.swift */; };
 		E78DB9271F5DBD6300C60ACF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78DB9261F5DBD6300C60ACF /* AppDelegate.swift */; };
 		E78DB9291F5DBD6300C60ACF /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = E78DB9281F5DBD6300C60ACF /* GameScene.sks */; };
 		E78DB92B1F5DBD6300C60ACF /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = E78DB92A1F5DBD6300C60ACF /* Actions.sks */; };
@@ -22,6 +23,7 @@
 /* Begin PBXFileReference section */
 		6A262C861F62DB3C00098155 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		6A262C881F62DB5500098155 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
+		6A262C8A1F66C6C300098155 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		E78DB9231F5DBD6300C60ACF /* Square Escape.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Square Escape.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E78DB9261F5DBD6300C60ACF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E78DB9281F5DBD6300C60ACF /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -50,6 +52,7 @@
 			children = (
 				6A262C861F62DB3C00098155 /* Queue.swift */,
 				6A262C881F62DB5500098155 /* Stack.swift */,
+				6A262C8A1F66C6C300098155 /* Node.swift */,
 			);
 			name = "Data Structures";
 			sourceTree = "<group>";
@@ -119,7 +122,7 @@
 				TargetAttributes = {
 					E78DB9221F5DBD6300C60ACF = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = QMRXG7JS2X;
+						DevelopmentTeam = Q922D8LNNZ;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -165,6 +168,7 @@
 				E78DB92D1F5DBD6300C60ACF /* GameScene.swift in Sources */,
 				6A262C891F62DB5500098155 /* Stack.swift in Sources */,
 				E78DB92F1F5DBD6300C60ACF /* GameViewController.swift in Sources */,
+				6A262C8B1F66C6C300098155 /* Node.swift in Sources */,
 				E78DB9271F5DBD6300C60ACF /* AppDelegate.swift in Sources */,
 				6A262C871F62DB3C00098155 /* Queue.swift in Sources */,
 			);
@@ -289,7 +293,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = QMRXG7JS2X;
+				DEVELOPMENT_TEAM = Q922D8LNNZ;
 				INFOPLIST_FILE = "Square Escape/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -303,7 +307,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = QMRXG7JS2X;
+				DEVELOPMENT_TEAM = Q922D8LNNZ;
 				INFOPLIST_FILE = "Square Escape/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
