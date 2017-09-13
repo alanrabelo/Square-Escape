@@ -19,8 +19,16 @@ public struct Stack<T> {
         return array.isEmpty
     }
     
-    public mutating func push(_ element: T) {
-        array.insert(element, at: 0)
+    public mutating func push(_ element: [T]) {
+        array = element + array
+    }
+    
+    public mutating func enqueue(_ element: [T]) {
+        push(element)
+    }
+    
+    public mutating func dequeue() -> T? {
+        return pop()
     }
     
     public mutating func pop() -> T? {

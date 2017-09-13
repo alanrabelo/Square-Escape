@@ -17,6 +17,17 @@ public struct Queue<T> {
         return array.isEmpty
     }
     
+    
+    public mutating func push(_ element: [T]) {
+        enqueue(element)
+    }
+    
+    
+    
+    public mutating func pop() -> T? {
+        return dequeue()
+    }
+    
     public mutating func enqueue(_ element: [T]) {
         array.append(contentsOf: element)
     }

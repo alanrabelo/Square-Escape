@@ -23,11 +23,11 @@ class GameViewController: UIViewController {
         self.buttonPlayAgain.isHidden = isHidden
         self.blurView.isHidden = isHidden
         
-        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         // Load 'GameScene.sks' as a GKScene. This provides gameplay related content
         // including entities and graphs.
