@@ -13,10 +13,10 @@ import ObjectiveC
 class GameScene: SKScene {
     
     var gameViewController : GameViewController!
-    var numberOfSquares = 8
-    let sizeOfSquaresMinor : CGFloat = 50
+    var numberOfSquares = 80
+    let sizeOfSquaresMinor : CGFloat = 39
 
-    let sizeOfSquares : CGFloat = 51
+    let sizeOfSquares : CGFloat = 40
     
     var entities = [GKEntity]()
     var graphs = [String : GKGraph]()
@@ -35,13 +35,10 @@ class GameScene: SKScene {
     override func sceneDidLoad() {
 
         // -200 is added for a safety distance to initial and final positions
-
         self.width = self.size.width - 200
         self.heigth = self.size.height - 200
         
         self.addSquares(withCount: self.numberOfSquares)
-        
-
 
     }
     
@@ -89,13 +86,14 @@ class GameScene: SKScene {
             var position : CGPoint = getRandomPosition()
             
             while !self.squareNodes.filter({ (node) -> Bool in
-                let currentX = position.x + self.width / 2
-                let currentY = position.y + self.heigth / 2
+                let currentX = position.x
+                let currentY = position.y
                 
-                let differenceX = abs((node.position.x + self.width / 2) - currentX)
-                let differenceY = abs((node.position.y + self.heigth / 2) - currentY)
+                let differenceX = abs((node.position.x) - currentX)
+                let differenceY = abs((node.position.y) - currentY)
                 
-                return (differenceX > sizeOfSquares && differenceY > sizeOfSquares) ? false : true
+                    //.distance(to: node.position) > sizeOfSquares
+                return (differenceX > sizeOfSquares + 10 || differenceY > sizeOfSquares + 10) ? false : true
                 
             }).isEmpty {
                 
@@ -196,9 +194,6 @@ class GameScene: SKScene {
         })
         
         if sortedDestinations.first == self.finalPosition {
-            
-//            self.gameViewController.displayWonView(false)
-//            self.restartScene()
             print("You Found it")
         }
         var nodes = [Node]()
@@ -208,7 +203,6 @@ class GameScene: SKScene {
         }
         
         return nodes
-        
         
     }
     
@@ -239,7 +233,6 @@ class GameScene: SKScene {
         
         let distance = (line1Translated.b.x - line1Translated.a.x) * (line2Translated.b.y - line2Translated.a.y) - (line1Translated.b.y - line1Translated.a.y) * (line2Translated.b.x - line2Translated.a.x)
         if distance == 0 {
-//            print("error, parallel lines")
             return CGPoint.zero
         }
         
@@ -258,7 +251,6 @@ class GameScene: SKScene {
     
     
     func getRandomPosition() -> CGPoint {
-        
         return CGPoint(x: (CGFloat(arc4random_uniform(UInt32(self.width))) - (self.width / 2)), y: (CGFloat(arc4random_uniform(UInt32(self.heigth))) - self.heigth / 2))
     }
     
@@ -297,8 +289,11 @@ class GameScene: SKScene {
             getAllPath(point: point.father!)
         }
     }
-    
-    override func update(_ currentTime: TimeInterval) {
-        
+
+}
+
+extension CGPoint {
+    func distance(toPoint p:CGPoint) -> CGFloat {
+        return sqrt(pow((p.x - x), 2) + pow((p.y - y), 2))
     }
 }
