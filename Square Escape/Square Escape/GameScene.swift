@@ -154,10 +154,7 @@ class GameScene: SKScene {
                     }
                 }
                 
-                
             }
-            
-  
             
             if (intersections.count <= 1 && self.initialPosition.position == newPoint.state && self.finalPosition != destination){
                 let path = CGMutablePath()
@@ -224,7 +221,7 @@ class GameScene: SKScene {
         }
         
         for _ in 0..<self.fringe.count {
-            self.fringe.dequeue()
+            _ = self.fringe.dequeue()
         }
         
         self.addSquares(withCount: self.numberOfSquares)
@@ -284,6 +281,7 @@ class GameScene: SKScene {
     
     func getAllPath(point: Node){
         if point.father != nil {
+            
             print(point)
             let path = CGMutablePath()
             path.move(to: point.state)
