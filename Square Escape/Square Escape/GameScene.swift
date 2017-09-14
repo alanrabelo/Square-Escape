@@ -108,7 +108,7 @@ class GameScene: SKScene {
     }
     
     func sucessor(ofPoint newPoint : Node) -> [Node] {
-        
+        var nodes = [Node]()
         // Removing all nodes in an array of all lines drawn
         for node in tempLineNodes {
             node.removeFromParent()
@@ -157,26 +157,24 @@ class GameScene: SKScene {
                 shape.lineWidth = 2
                 addChild(shape)
                 selectedDestinations.append(destination)
+                if destination != newPoint.state{
+                    nodes.append(Node.init(state: destination, father: newPoint, deep: newPoint.deep+1, cost: destination.distance(toPoint: newPoint.state)))
+                }
                 self.tempLineNodes.append(shape)
             }
             
         }
         
-        let sortedDestinations = selectedDestinations.sorted(by: { (point1, point2) -> Bool in
+        nodes.sort(by: { (node1, node2) -> Bool in
             
-            let distance1 = pow(point1.x - finalPosition.x, 2) + pow(point1.y - finalPosition.y, 2)
-            let distance2 = pow(point2.x - finalPosition.x, 2) + pow(point2.y - finalPosition.y, 2)
+            let distance1 = pow(node1.state.x - finalPosition.x, 2) + pow(node1.state.y - finalPosition.y, 2) + node1.cost
+            let distance2 = pow(node2.state.x - finalPosition.x, 2) + pow(node2.state.y - finalPosition.y, 2) + node2.cost
             
             return distance1 < distance2
         })
         
-        if sortedDestinations.first == self.finalPosition {
+        if nodes.first?.state == self.finalPosition {
             print("You Found it")
-        }
-        var nodes = [Node]()
-        
-        for s in sortedDestinations{
-            nodes.append(Node.init(state: s, father: newPoint, deep: newPoint.deep+1))
         }
         
         return nodes
