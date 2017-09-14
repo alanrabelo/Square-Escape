@@ -10,6 +10,10 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
+protocol GameDelegate {
+    func restartGame()
+}
+
 class GameViewController: UIViewController {
 
     @IBOutlet weak var blurView: UIVisualEffectView!
@@ -17,6 +21,7 @@ class GameViewController: UIViewController {
     
     @IBAction func restartGame(_ sender: UIButton) {
         displayWonView(true)
+        self.initializeGameScene()
     }
     
     func displayWonView(_ isHidden : Bool) {
@@ -31,31 +36,7 @@ class GameViewController: UIViewController {
         
         // Load 'GameScene.sks' as a GKScene. This provides gameplay related content
         // including entities and graphs.
-        if let scene = GKScene(fileNamed: "GameScene") {
-            
-            // Get the SKScene from the loaded GKScene
-            if let sceneNode = scene.rootNode as! GameScene? {
-                
-                sceneNode.gameViewController = self
-
-                // Copy gameplay related content over to the scene
-                sceneNode.entities = scene.entities
-                sceneNode.graphs = scene.graphs
-                
-                // Set the scale mode to scale to fit the window
-                sceneNode.scaleMode = .aspectFill
-                
-                // Present the scene
-                if let view = self.view as! SKView? {
-                    view.presentScene(sceneNode)
-                    
-                    view.ignoresSiblingOrder = true
-                    
-                    view.showsFPS = true
-                    view.showsNodeCount = true
-                }
-            }
-        }
+        self.initializeGameScene()
     }
 
     override var shouldAutorotate: Bool {
@@ -77,5 +58,33 @@ class GameViewController: UIViewController {
 
     override var prefersStatusBarHidden: Bool {
         return true
+    }
+    
+    func initializeGameScene(){
+        if let scene = GKScene(fileNamed: "GameScene") {
+            
+            // Get the SKScene from the loaded GKScene
+            if let sceneNode = scene.rootNode as! GameScene? {
+                
+                sceneNode.gameViewController = self
+                
+                // Copy gameplay related content over to the scene
+                sceneNode.entities = scene.entities
+                sceneNode.graphs = scene.graphs
+                
+                // Set the scale mode to scale to fit the window
+                sceneNode.scaleMode = .aspectFill
+                
+                // Present the scene
+                if let view = self.view as! SKView? {
+                    view.presentScene(sceneNode)
+                    
+                    view.ignoresSiblingOrder = true
+                    
+                    view.showsFPS = true
+                    view.showsNodeCount = true
+                }
+            }
+        }
     }
 }

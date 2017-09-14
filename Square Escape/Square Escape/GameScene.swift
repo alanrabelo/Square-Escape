@@ -13,7 +13,7 @@ import ObjectiveC
 class GameScene: SKScene {
     
     var gameViewController : GameViewController!
-    var numberOfSquares = 8
+    var numberOfSquares = 80
     let sizeOfSquaresMinor : CGFloat = 39
 
     let sizeOfSquares : CGFloat = 40
