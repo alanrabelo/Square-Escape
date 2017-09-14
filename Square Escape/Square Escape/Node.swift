@@ -15,20 +15,23 @@ class Node: NSObject {
     var father: Node?
     //var sucessors: [Node]?
     var action: Int?
-    var cost: Double?
+    var cost: CGFloat
+    var totalCost: Double?
     var deep: Int
     var desc:String
     
     init(state: CGPoint) {
         self.state = state
         self.deep = 0
+        self.cost = 0
         self.desc = "state: \(self.state), deep: \(self.deep)"
     }
     
-    init(state: CGPoint, father: Node, deep: Int){
+    init(state: CGPoint, father: Node, deep: Int, cost: CGFloat){
         self.state = state
         self.father = father
         self.deep = deep
+        self.cost = cost + father.cost
         self.desc = "state: \(self.state), deep: \(self.deep)"
     }
 

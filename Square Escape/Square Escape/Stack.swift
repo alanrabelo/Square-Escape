@@ -9,7 +9,7 @@
 import Foundation
 
 public struct Stack<T> {
-    fileprivate var array = [T]()
+    var array = [T]()
     
     public var count: Int {
         return array.count
