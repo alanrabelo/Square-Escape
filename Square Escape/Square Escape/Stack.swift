@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 public struct Stack<T> {
     var array = [T]()
@@ -14,6 +15,8 @@ public struct Stack<T> {
     public var count: Int {
         return array.count
     }
+    
+    
     
     public var isEmpty: Bool {
         return array.isEmpty

@@ -39,6 +39,16 @@ class GameScene: SKScene {
         self.addSquares(withCount: self.numberOfSquares)
     }
     
+    public func sortFringe() {
+        
+        fringe.array.sort { (node1, node2) -> Bool in
+            let distance1 = pow(node1.state.x - finalPosition.x, 2) + pow(node1.state.y - finalPosition.y, 2) + node1.cost
+            let distance2 = pow(node2.state.x - finalPosition.x, 2) + pow(node2.state.y - finalPosition.y, 2) + node2.cost
+            return distance1 < distance2
+        }
+        
+    }
+    
     func addSquares(withCount count : Int) {
         
         if !squareNodes.isEmpty {
@@ -116,7 +126,6 @@ class GameScene: SKScene {
         tempLineNodes.removeAll()
         
         var selectedDestinations = [CGPoint]()
-
         
         for var destination in self.vertices {
             
@@ -165,13 +174,10 @@ class GameScene: SKScene {
             
         }
         
-        nodes.sort(by: { (node1, node2) -> Bool in
-            
-            let distance1 = pow(node1.state.x - finalPosition.x, 2) + pow(node1.state.y - finalPosition.y, 2) + node1.cost
-            let distance2 = pow(node2.state.x - finalPosition.x, 2) + pow(node2.state.y - finalPosition.y, 2) + node2.cost
-            
-            return distance1 < distance2
-        })
+        for n in nodes{
+            n.totalCost = pow(n.state.x - finalPosition.x, 2) + pow(n.state.y - finalPosition.y, 2) + n.cost
+        }
+        
         
         if nodes.first?.state == self.finalPosition {
             print("You Found it")
@@ -240,10 +246,13 @@ class GameScene: SKScene {
             self.gameViewController.displayWonView(false)
             found = false
         }
+    
+        self.sortFringe()
+        
         
         if let currentPoint = fringe.dequeue() {
             
-            if currentPoint.state == self.finalPosition{
+            if currentPoint.state == self.finalPosition  {
                 
                 for node in tempLineNodes {
                     node.removeFromParent()

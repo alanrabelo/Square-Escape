@@ -16,7 +16,7 @@ class Node: NSObject {
     //var sucessors: [Node]?
     var action: Int?
     var cost: CGFloat
-    var totalCost: Double?
+    var totalCost: CGFloat?
     var deep: Int
     var desc:String
     
@@ -34,6 +34,7 @@ class Node: NSObject {
         self.cost = cost + father.cost
         self.desc = "state: \(self.state), deep: \(self.deep)"
     }
+    
 
     
 }
