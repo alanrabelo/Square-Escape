@@ -212,7 +212,6 @@ class GameScene: SKScene {
         let line2Translated = (a: CGPoint(x: line2.a.x + (self.width / 2), y: line2.a.y + (self.heigth / 2)),
                                b: CGPoint(x: line2.b.x + (self.width / 2), y: line2.b.y + (self.heigth / 2)))
 
-        
         let distance = (line1Translated.b.x - line1Translated.a.x) * (line2Translated.b.y - line2Translated.a.y) - (line1Translated.b.y - line1Translated.a.y) * (line2Translated.b.x - line2Translated.a.x)
         if distance == 0 {
             return CGPoint.zero
@@ -231,7 +230,6 @@ class GameScene: SKScene {
         return CGPoint(x: line1Translated.a.x + u * (line1Translated.b.x - line1Translated.a.x), y: line1Translated.a.y + u * (line1Translated.b.y - line1Translated.a.y))
     }
     
-    
     func getRandomPosition() -> CGPoint {
         return CGPoint(x: (CGFloat(arc4random_uniform(UInt32(self.width))) - (self.width / 2)), y: (CGFloat(arc4random_uniform(UInt32(self.heigth))) - self.heigth / 2))
     }
@@ -246,19 +244,21 @@ class GameScene: SKScene {
         }
         
         if let currentPoint = fringe.dequeue() {
+            
             if currentPoint.state == self.finalPosition{
+                
                 for node in tempLineNodes {
                     node.removeFromParent()
                 }
-                tempLineNodes.removeAll()
                 
+                tempLineNodes.removeAll()
                 self.clearPaths()
-
                 found = true
                 self.getAllPath(point: currentPoint)
                 
             }else{
                 fringe.enqueue(sucessor(ofPoint: currentPoint))
+                
             }
             
         }
