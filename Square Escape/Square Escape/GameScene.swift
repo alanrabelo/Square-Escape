@@ -13,7 +13,7 @@ import ObjectiveC
 class GameScene: SKScene {
     
     var gameViewController : GameViewController!
-    var numberOfSquares = 50
+    var numberOfSquares = 100
     let sizeOfSquaresMinor : CGFloat = 49
     let sizeOfSquares : CGFloat = 50
     
@@ -28,7 +28,6 @@ class GameScene: SKScene {
     var vertices = [CGPoint]()
     var finalPosition : CGPoint!
     var initialPosition : SKSpriteNode!
-    var fringe = Stack<Node>()
     var squareCenters : [CGPoint]!
     var tempLineNodes = [SKShapeNode]()
     
@@ -37,16 +36,6 @@ class GameScene: SKScene {
         self.width = self.size.width - 200
         self.heigth = self.size.height - 200
         self.addSquares(withCount: self.numberOfSquares)
-    }
-    
-    public func sortFringe() {
-        
-        fringe.array.sort { (node1, node2) -> Bool in
-            let distance1 = pow(node1.state.x - finalPosition.x, 2) + pow(node1.state.y - finalPosition.y, 2) + node1.fullCost()
-            let distance2 = pow(node2.state.x - finalPosition.x, 2) + pow(node2.state.y - finalPosition.y, 2) + node2.fullCost()
-            return distance1 < distance2
-        }
-        
     }
     
     func addSquares(withCount count : Int) {
@@ -73,10 +62,6 @@ class GameScene: SKScene {
         self.initialPosition = SKSpriteNode(color: .blue, size: CGSize.init(width: sizeOfSquaresMinor/2, height: sizeOfSquaresMinor/2))
         initialPosition.position = CGPoint(x: (-self.width / 2) - 50 , y: startHeight)
 
-        
-        let no = Node.init(state: initialPosition.position)
-        
-        self.fringe.enqueue([no])
         self.addChild(initialPosition)
         
         let finalPosition = SKSpriteNode(color: .blue, size: CGSize.init(width: sizeOfSquaresMinor/2, height: sizeOfSquaresMinor/2))
@@ -131,10 +116,6 @@ class GameScene: SKScene {
         
         clearPaths()
         
-        for _ in 0..<self.fringe.count {
-            _ = self.fringe.dequeue()
-        }
-        
         self.addSquares(withCount: self.numberOfSquares)
         
     }
@@ -144,8 +125,13 @@ class GameScene: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         if found {
-            self.gameViewController.displayWonView(false)
             found = false
+            
+            DispatchQueue.main.async {
+                self.gameViewController.displayWonView(false)
+                
+            }
+            self.gameViewController.initializeGameScene()
             return
         }
         
@@ -176,25 +162,6 @@ class GameScene: SKScene {
         
 
 
-    }
-    
-    func getAllPath(point: Node){
-        if point.father != nil {
-            
-            print(point)
-            let path = CGMutablePath()
-            path.move(to: point.state)
-            path.addLine(to: point.father!.state)
-            
-            let shape = SKShapeNode()
-            shape.path = path
-            shape.strokeColor = UIColor.blue
-            shape.lineWidth = 5
-            addChild(shape)
-            //selectedDestinations.append(destination)
-            self.tempLineNodes.append(shape)
-            getAllPath(point: point.father!)
-        }
     }
     
     func getAllPath(point: ANode){

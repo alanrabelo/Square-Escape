@@ -76,17 +76,16 @@ class AStar {
     
     var width, heigth : CGFloat!
     
-    init(withInitialPosition initialPosition : ANode, andFinalPosition finalPosition : ANode) {
+    init(withInitialPosition initialPosition : ANode, andFinalPosition finalPosition : ANode, allowVisitHistory allow : Bool = true) {
         self.initialPosition = initialPosition
         self.finalPosition = finalPosition
     }
-
     
     var fringe = Stack<ANode>()
     
-    
-    
     func findPath() -> [ANode] {
+        
+        
         
         self.fringe.enqueue(self.sucessor(ofPoint: initialPosition))
         
@@ -120,7 +119,17 @@ class AStar {
                         
 
                 } else {
-                    self.fringe.enqueue(self.sucessor(ofPoint: selectedNode))
+                    
+                    let sucessors = self.sucessor(ofPoint: selectedNode)
+                    
+                    for sucessor in sucessors {
+                        if !self.fringe.array.contains(where: { (node) -> Bool in
+                            return node.position == sucessor.position
+                        }) {
+                            self.fringe.enqueue([sucessor])
+                        }
+                    }
+                    
                 }
                 
             }
