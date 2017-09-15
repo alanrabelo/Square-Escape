@@ -35,6 +35,11 @@ class Node: NSObject {
         self.desc = "state: \(self.state), deep: \(self.deep)"
     }
     
+    func fullCost() -> CGFloat {
+        
+        guard let father = self.father else { return self.cost }
+        return self.cost + father.fullCost()
+    }
 
     
 }
