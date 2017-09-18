@@ -10,6 +10,7 @@
 		6A262C871F62DB3C00098155 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A262C861F62DB3C00098155 /* Queue.swift */; };
 		6A262C891F62DB5500098155 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A262C881F62DB5500098155 /* Stack.swift */; };
 		6A262C8B1F66C6C300098155 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A262C8A1F66C6C300098155 /* Node.swift */; };
+		E75001FA1F6C74190017E42B /* Square_EscapeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75001F91F6C74190017E42B /* Square_EscapeTests.swift */; };
 		E75813161F6BFB3100D5602E /* AStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75813151F6BFB3100D5602E /* AStar.swift */; };
 		E78DB9271F5DBD6300C60ACF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78DB9261F5DBD6300C60ACF /* AppDelegate.swift */; };
 		E78DB9291F5DBD6300C60ACF /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = E78DB9281F5DBD6300C60ACF /* GameScene.sks */; };
@@ -21,10 +22,23 @@
 		E78DB9371F5DBD6300C60ACF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E78DB9351F5DBD6300C60ACF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		E75001FC1F6C74190017E42B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E78DB91B1F5DBD6300C60ACF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E78DB9221F5DBD6300C60ACF;
+			remoteInfo = "Square Escape";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		6A262C861F62DB3C00098155 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		6A262C881F62DB5500098155 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		6A262C8A1F66C6C300098155 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
+		E75001F71F6C74190017E42B /* Square EscapeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Square EscapeTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E75001F91F6C74190017E42B /* Square_EscapeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Square_EscapeTests.swift; sourceTree = "<group>"; };
+		E75001FB1F6C74190017E42B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E75813151F6BFB3100D5602E /* AStar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AStar.swift; sourceTree = "<group>"; };
 		E78DB9231F5DBD6300C60ACF /* Square Escape.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Square Escape.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E78DB9261F5DBD6300C60ACF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -39,6 +53,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		E75001F41F6C74190017E42B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E78DB9201F5DBD6300C60ACF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -60,10 +81,20 @@
 			name = "Data Structures";
 			sourceTree = "<group>";
 		};
+		E75001F81F6C74190017E42B /* Square EscapeTests */ = {
+			isa = PBXGroup;
+			children = (
+				E75001F91F6C74190017E42B /* Square_EscapeTests.swift */,
+				E75001FB1F6C74190017E42B /* Info.plist */,
+			);
+			path = "Square EscapeTests";
+			sourceTree = "<group>";
+		};
 		E78DB91A1F5DBD6300C60ACF = {
 			isa = PBXGroup;
 			children = (
 				E78DB9251F5DBD6300C60ACF /* Square Escape */,
+				E75001F81F6C74190017E42B /* Square EscapeTests */,
 				E78DB9241F5DBD6300C60ACF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -72,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				E78DB9231F5DBD6300C60ACF /* Square Escape.app */,
+				E75001F71F6C74190017E42B /* Square EscapeTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -96,6 +128,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		E75001F61F6C74190017E42B /* Square EscapeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E75002001F6C74190017E42B /* Build configuration list for PBXNativeTarget "Square EscapeTests" */;
+			buildPhases = (
+				E75001F31F6C74190017E42B /* Sources */,
+				E75001F41F6C74190017E42B /* Frameworks */,
+				E75001F51F6C74190017E42B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E75001FD1F6C74190017E42B /* PBXTargetDependency */,
+			);
+			name = "Square EscapeTests";
+			productName = "Square EscapeTests";
+			productReference = E75001F71F6C74190017E42B /* Square EscapeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		E78DB9221F5DBD6300C60ACF /* Square Escape */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E78DB93B1F5DBD6400C60ACF /* Build configuration list for PBXNativeTarget "Square Escape" */;
@@ -123,6 +173,12 @@
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = alanrabelo;
 				TargetAttributes = {
+					E75001F61F6C74190017E42B = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = QMRXG7JS2X;
+						ProvisioningStyle = Automatic;
+						TestTargetID = E78DB9221F5DBD6300C60ACF;
+					};
 					E78DB9221F5DBD6300C60ACF = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = QMRXG7JS2X;
@@ -144,11 +200,19 @@
 			projectRoot = "";
 			targets = (
 				E78DB9221F5DBD6300C60ACF /* Square Escape */,
+				E75001F61F6C74190017E42B /* Square EscapeTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		E75001F51F6C74190017E42B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E78DB9211F5DBD6300C60ACF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -164,6 +228,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		E75001F31F6C74190017E42B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E75001FA1F6C74190017E42B /* Square_EscapeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E78DB91F1F5DBD6300C60ACF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -179,6 +251,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E75001FD1F6C74190017E42B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E78DB9221F5DBD6300C60ACF /* Square Escape */;
+			targetProxy = E75001FC1F6C74190017E42B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		E78DB9301F5DBD6300C60ACF /* Main.storyboard */ = {
@@ -200,6 +280,34 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		E75001FE1F6C74190017E42B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = QMRXG7JS2X;
+				INFOPLIST_FILE = "Square EscapeTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.alanrabelo.Square-EscapeTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Square Escape.app/Square Escape";
+			};
+			name = Debug;
+		};
+		E75001FF1F6C74190017E42B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = QMRXG7JS2X;
+				INFOPLIST_FILE = "Square EscapeTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.alanrabelo.Square-EscapeTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Square Escape.app/Square Escape";
+			};
+			name = Release;
+		};
 		E78DB9391F5DBD6400C60ACF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -324,6 +432,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		E75002001F6C74190017E42B /* Build configuration list for PBXNativeTarget "Square EscapeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E75001FE1F6C74190017E42B /* Debug */,
+				E75001FF1F6C74190017E42B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		E78DB91E1F5DBD6300C60ACF /* Build configuration list for PBXProject "Square Escape" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

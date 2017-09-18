@@ -13,7 +13,7 @@ import ObjectiveC
 class GameScene: SKScene {
     
     var gameViewController : GameViewController!
-    var numberOfSquares = 100
+    var numberOfSquares = 60
     let sizeOfSquaresMinor : CGFloat = 49
     let sizeOfSquares : CGFloat = 50
     
@@ -135,7 +135,15 @@ class GameScene: SKScene {
             return
         }
         
+        self.generateTree()
         
+        
+
+        
+        found = true
+    }
+    
+    func generateTree() {
         let initialNode = ANode(withPosition: self.initialPosition.position, andDistanceToFinal: self.initialPosition.position.distance(toPoint: self.finalPosition))
         let finalNode = ANode(withPosition: self.finalPosition, andDistanceToFinal: 0)
         let astar = AStar(withInitialPosition: initialNode, andFinalPosition: finalNode)
@@ -157,11 +165,6 @@ class GameScene: SKScene {
         self.clearPaths()
         
         self.getAllPath(point: path.first!)
-        
-        found = true
-        
-
-
     }
     
     func getAllPath(point: ANode){

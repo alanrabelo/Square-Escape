@@ -34,6 +34,36 @@ public struct Stack<T> {
         return pop()
     }
     
+    func dequeueMin() -> ANode? {
+        
+        if var array = self.array as? [ANode] {
+            
+            let minimumValue = array.min(by: { (node1, node2) -> Bool in
+                return node1.distanceToFinal + node1.totalCost() < node2.distanceToFinal + node2.totalCost()
+            })
+            print("The current is: \(minimumValue?.position)")
+
+            let minimum2 = (self.array as! [ANode]).sorted(by: { (node1, node2) -> Bool in
+                return node1.distanceToFinal + node1.totalCost() < node2.distanceToFinal + node2.totalCost()
+            })
+            
+            
+            print("The correct should be: \(minimum2.first?.position)")
+            
+            array.remove(at: array.index(where: { (node) -> Bool in
+                return node.position == (minimumValue?.position)!
+            })!)
+            
+            
+            
+            
+            return minimumValue
+        }
+        
+        return nil
+        
+    }
+    
     public mutating func pop() -> T? {
         if isEmpty {
             return nil

@@ -15,7 +15,7 @@ class ANode {
     var parent : ANode?
     var distanceToFinal, cost : CGFloat
     var position : CGPoint
-    var totalCostValue : CGFloat = 0
+    var previousCost : CGFloat?
     
     init(withPosition position : CGPoint, andDistanceToFinal distanceToFinal : CGFloat, andCost cost : CGFloat = 0) {
         
@@ -26,14 +26,14 @@ class ANode {
     }
     
     func summedCost() -> CGFloat {
-        return self.cost + self.totalCost()
+        return self.distanceToFinal + self.totalCost()
     }
     
     func totalCost() -> CGFloat {
         
-        if self.totalCostValue != 0 {
-            return self.totalCostValue
-        }
+//        if self.totalCostValue != 0 {
+//            return self.totalCostValue
+//        }
         
         guard let parent = self.parent else {
             return 0
@@ -42,21 +42,6 @@ class ANode {
         return self.position.distance(toPoint: parent.position) + parent.totalCost()
         
     }
-  
-    
-    func sucessors() -> [ANode] {
-        
-        let nextNodes = [ANode]()
-        
-        return nextNodes.map({ (node) -> ANode in
-            
-            node.parent = self
-            return node
-            
-        })
-    }
-    
-    
     
     func isObjective(node : ANode) -> Bool {
         return node.position == self.position
@@ -76,63 +61,64 @@ class AStar {
     
     var width, heigth : CGFloat!
     
+    
+    
     init(withInitialPosition initialPosition : ANode, andFinalPosition finalPosition : ANode, allowVisitHistory allow : Bool = true) {
         self.initialPosition = initialPosition
         self.finalPosition = finalPosition
     }
     
-    var fringe = Stack<ANode>()
+    var fringe = [ANode]()
     
     func findPath() -> [ANode] {
         
+        print("Started Searching")
+        self.fringe.append(contentsOf: self.sucessor(ofPoint: initialPosition))
         
+        print(fringe.map({ (node) -> String in
+            return "\(node.cost)"
+        }))
         
-        self.fringe.enqueue(self.sucessor(ofPoint: initialPosition))
-        
-        self.fringe.array.sort { (node1, node2) -> Bool in
-            return node1.cost + node1.distanceToFinal < node2.cost + node2.distanceToFinal
-        }
         
         while fringe.count != 0 {
             
-            fringe.array.sort(by: { (node1, node2) -> Bool in
-                return node1.distanceToFinal + node1.totalCost() < node2.distanceToFinal + node2.totalCost()
+            fringe.sort(by: { (node1, node2) -> Bool in
+                  return node1.distanceToFinal < node2.distanceToFinal
             })
             
-            if let selectedNode = self.fringe.dequeue() {
-                // Verifica se o nó é objetivo para procurar algum outro nó com valor menor que ele
+            
+            
+            let selectedNode = self.fringe.removeFirst()
+            
+            // Verifica se o nó é objetivo para procurar algum outro nó com valor menor que ele
+            if selectedNode.isObjective(node: self.finalPosition) {
                 
-                if selectedNode.isObjective(node: self.finalPosition) {
-                    
-                        var currentNode : ANode? = selectedNode
-                        var path = [ANode]()
-                        
-                        while currentNode != nil {
-                            path.append(currentNode!)
-                            currentNode = currentNode!.parent
-                        }
-                        
-                        print("Found with cost \(selectedNode.totalCost())")
-
-                        return path
-                        
-                        
-
-                } else {
-                    
-                    let sucessors = self.sucessor(ofPoint: selectedNode)
-                    
-                    for sucessor in sucessors {
-                        if !self.fringe.array.contains(where: { (node) -> Bool in
-                            return node.position == sucessor.position
-                        }) {
-                            self.fringe.enqueue([sucessor])
-                        }
-                    }
-                    
+                var currentNode : ANode? = selectedNode
+                var path = [ANode]()
+                
+                while currentNode != nil {
+                    path.append(currentNode!)
+                    currentNode = currentNode!.parent
                 }
                 
+                return path
+        
+            } else {
+                
+                // Adiciona os sucessores do nó atual na borda
+                let sucessors = self.sucessor(ofPoint: selectedNode)
+                
+                self.fringe.append(contentsOf: sucessors)
+                
+//                self.fringe.append(contentsOf: sucessors.filter({ (node1) -> Bool in
+//                    return !self.fringe.contains(where: { (node2) -> Bool in
+//                        return node2.position == node1.position
+//                    })
+//                }))
+                
             }
+            
+            
             
         }
         
@@ -141,6 +127,7 @@ class AStar {
     }
     
     func sucessor(ofPoint newPoint : ANode) -> [ANode] {
+        
         var nodes = [ANode]()
         // Removing all nodes in an array of all lines drawn
         
@@ -178,6 +165,7 @@ class AStar {
                     let nodeToBeAdded = ANode(withPosition: destination, andDistanceToFinal: destination.distance(toPoint: self.finalPosition.position))
                     nodeToBeAdded.parent = newPoint
                     nodeToBeAdded.cost = newPoint.position.distance(toPoint: nodeToBeAdded.position)
+
                     nodes.append(nodeToBeAdded)
                     
                 }
