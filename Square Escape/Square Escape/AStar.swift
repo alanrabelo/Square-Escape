@@ -16,6 +16,7 @@ class ANode {
     var distanceToFinal, cost : CGFloat
     var position : CGPoint
     var previousCost : CGFloat?
+    var totalCostValue: CGFloat?
     
     init(withPosition position : CGPoint, andDistanceToFinal distanceToFinal : CGFloat, andCost cost : CGFloat = 0) {
         
@@ -65,26 +66,43 @@ class AStar {
     
     init(withInitialPosition initialPosition : ANode, andFinalPosition finalPosition : ANode, allowVisitHistory allow : Bool = true) {
         self.initialPosition = initialPosition
+        self.initialPosition.previousCost = 0
+        self.initialPosition.totalCostValue = self.initialPosition.distanceToFinal
         self.finalPosition = finalPosition
     }
     
     var fringe = [ANode]()
     
-    func findPath() -> [ANode] {
+    func findPath(type: Int) -> [ANode] {
         
         print("Started Searching")
         self.fringe.append(contentsOf: self.sucessor(ofPoint: initialPosition))
         
+        
         print(fringe.map({ (node) -> String in
-            return "\(node.cost)"
+            return "\(node.previousCost!)"
         }))
         
         
         while fringe.count != 0 {
             
-            fringe.sort(by: { (node1, node2) -> Bool in
-                  return node1.distanceToFinal < node2.distanceToFinal
-            })
+            switch type {
+            case 0:
+                fringe.sort(by: { (node1, node2) -> Bool in
+                    return node1.totalCostValue! < node2.totalCostValue!
+                })
+            case 1:
+                fringe.sort(by: { (node1, node2) -> Bool in
+                    return node1.distanceToFinal < node2.distanceToFinal
+                })
+            case 2:
+                fringe.sort(by: { (node1, node2) -> Bool in
+                    return node1.previousCost! < node2.previousCost!
+                })
+            default:
+                print("Largura")
+            }
+            
             
             
             
@@ -165,7 +183,11 @@ class AStar {
                     let nodeToBeAdded = ANode(withPosition: destination, andDistanceToFinal: destination.distance(toPoint: self.finalPosition.position))
                     nodeToBeAdded.parent = newPoint
                     nodeToBeAdded.cost = newPoint.position.distance(toPoint: nodeToBeAdded.position)
-
+                    //print(newPoint.totalCostValue!)
+                    //print(newPoint.distanceToFinal)
+                    print(newPoint.previousCost!)
+                    nodeToBeAdded.previousCost = newPoint.previousCost! + nodeToBeAdded.cost
+                    nodeToBeAdded.totalCostValue = nodeToBeAdded.previousCost! + nodeToBeAdded.distanceToFinal
                     nodes.append(nodeToBeAdded)
                     
                 }

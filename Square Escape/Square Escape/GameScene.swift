@@ -13,7 +13,7 @@ import ObjectiveC
 class GameScene: SKScene {
     
     var gameViewController : GameViewController!
-    var numberOfSquares = 60
+    static var numberOfSquares = 10
     let sizeOfSquaresMinor : CGFloat = 49
     let sizeOfSquares : CGFloat = 50
     
@@ -30,12 +30,14 @@ class GameScene: SKScene {
     var initialPosition : SKSpriteNode!
     var squareCenters : [CGPoint]!
     var tempLineNodes = [SKShapeNode]()
+    var search = 0
     
     override func sceneDidLoad() {
         // -200 is added for a safety distance to initial and final positions
         self.width = self.size.width - 200
         self.heigth = self.size.height - 200
-        self.addSquares(withCount: self.numberOfSquares)
+        GameViewController.setNumberSquares()
+        self.addSquares(withCount: GameScene.numberOfSquares)
     }
     
     func addSquares(withCount count : Int) {
@@ -69,7 +71,7 @@ class GameScene: SKScene {
         self.addChild(finalPosition)
         
         //Generating random sprites
-        for _ in 0..<numberOfSquares {
+        for _ in 0..<GameScene.numberOfSquares {
             
             let colorSprite = SKSpriteNode(color: .red, size: CGSize.init(width: sizeOfSquaresMinor, height: sizeOfSquaresMinor))
             
@@ -116,7 +118,7 @@ class GameScene: SKScene {
         
         clearPaths()
         
-        self.addSquares(withCount: self.numberOfSquares)
+        self.addSquares(withCount: GameScene.numberOfSquares)
         
     }
     
@@ -144,6 +146,7 @@ class GameScene: SKScene {
     }
     
     func generateTree() {
+        
         let initialNode = ANode(withPosition: self.initialPosition.position, andDistanceToFinal: self.initialPosition.position.distance(toPoint: self.finalPosition))
         let finalNode = ANode(withPosition: self.finalPosition, andDistanceToFinal: 0)
         let astar = AStar(withInitialPosition: initialNode, andFinalPosition: finalNode)
@@ -153,7 +156,7 @@ class GameScene: SKScene {
         astar.sizeOfSquares = self.sizeOfSquares
         astar.squareCenters = self.squareCenters
         
-        let path = astar.findPath()
+        let path = astar.findPath(type: self.search)
         
         print(path)
         

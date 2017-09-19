@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina4_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -18,23 +18,23 @@
                         <viewControllerLayoutGuide type="bottom" id="qHh-Mt-9TT"/>
                     </layoutGuides>
                     <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <visualEffectView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P0V-E3-XA5">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="0aW-DA-idi">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1QU-TE-gZE">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="pif-w0-CQW">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You Won!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wrk-ys-ZBN">
-                                                        <rect key="frame" x="8" y="308.5" width="359" height="50"/>
+                                                        <rect key="frame" x="8" y="162.5" width="651" height="50"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="50" id="6kU-85-59d"/>
                                                         </constraints>
@@ -42,10 +42,18 @@
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ue8-wt-fvy">
+                                                        <rect key="frame" x="0.0" y="17" width="667" height="138"/>
+                                                        <color key="tintColor" white="0.052408854169999998" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </pickerView>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="Wrk-ys-ZBN" secondAttribute="trailing" constant="8" id="CB4-40-Mif"/>
                                                     <constraint firstItem="Wrk-ys-ZBN" firstAttribute="leading" secondItem="pif-w0-CQW" secondAttribute="leading" constant="8" id="D55-BT-oQS"/>
+                                                    <constraint firstItem="Ue8-wt-fvy" firstAttribute="top" secondItem="pif-w0-CQW" secondAttribute="top" constant="17" id="GRC-0S-LGB"/>
+                                                    <constraint firstItem="Wrk-ys-ZBN" firstAttribute="top" secondItem="Ue8-wt-fvy" secondAttribute="bottom" constant="7.5" id="PHb-xs-rob"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Ue8-wt-fvy" secondAttribute="trailing" id="SMN-aZ-Ilq"/>
+                                                    <constraint firstItem="Ue8-wt-fvy" firstAttribute="leading" secondItem="pif-w0-CQW" secondAttribute="leading" id="XFd-wD-cGq"/>
                                                     <constraint firstItem="Wrk-ys-ZBN" firstAttribute="centerY" secondItem="pif-w0-CQW" secondAttribute="centerY" id="ouk-Io-iQA"/>
                                                 </constraints>
                                             </view>
@@ -64,7 +72,7 @@
                                 <blurEffect style="extraLight"/>
                             </visualEffectView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h6U-Qc-cct">
-                                <rect key="frame" x="145.5" y="370" width="85" height="45"/>
+                                <rect key="frame" x="291" y="224" width="85" height="45"/>
                                 <color key="backgroundColor" red="0.72549019609999998" green="0.035294117649999998" blue="0.20784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="85" id="DnM-8L-JBN"/>
@@ -96,11 +104,12 @@
                     <connections>
                         <outlet property="blurView" destination="P0V-E3-XA5" id="Afe-Fz-Sw7"/>
                         <outlet property="buttonPlayAgain" destination="h6U-Qc-cct" id="WWT-zQ-uzS"/>
+                        <outlet property="picker" destination="Ue8-wt-fvy" id="eAw-61-fpL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="136.80000000000001" y="135.38230884557723"/>
+            <point key="canvasLocation" x="136.28185907046478" y="135.19999999999999"/>
         </scene>
     </scenes>
 </document>

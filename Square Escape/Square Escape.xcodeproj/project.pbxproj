@@ -181,7 +181,7 @@
 					};
 					E78DB9221F5DBD6300C60ACF = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = QMRXG7JS2X;
+						DevelopmentTeam = Q922D8LNNZ;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -405,7 +405,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = QMRXG7JS2X;
+				DEVELOPMENT_TEAM = Q922D8LNNZ;
 				INFOPLIST_FILE = "Square Escape/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -419,7 +419,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = QMRXG7JS2X;
+				DEVELOPMENT_TEAM = Q922D8LNNZ;
 				INFOPLIST_FILE = "Square Escape/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -439,6 +439,7 @@
 				E75001FF1F6C74190017E42B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E78DB91E1F5DBD6300C60ACF /* Build configuration list for PBXProject "Square Escape" */ = {
 			isa = XCConfigurationList;
