@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 import SpriteKit
 
+enum SearchType : Int {
+    case astar = 0, greedy = 1, uniform = 2, breadth = 3
+}
+
 class ANode {
     
     var parent : ANode?
@@ -31,10 +35,6 @@ class ANode {
     }
     
     func totalCost() -> CGFloat {
-        
-//        if self.totalCostValue != 0 {
-//            return self.totalCostValue
-//        }
         
         guard let parent = self.parent else {
             return 0
@@ -73,7 +73,7 @@ class AStar {
     
     var fringe = [ANode]()
     
-    func findPath(type: Int) -> [ANode] {
+    func findPath(type: SearchType) -> [ANode] {
         
         print("Started Searching")
         self.fringe.append(contentsOf: self.sucessor(ofPoint: initialPosition))
@@ -87,24 +87,22 @@ class AStar {
         while fringe.count != 0 {
             
             switch type {
-            case 0:
+            case .astar:
                 fringe.sort(by: { (node1, node2) -> Bool in
-                    return node1.totalCostValue! < node2.totalCostValue!
+                    return node1.summedCost() < node2.summedCost()
                 })
-            case 1:
+            case .greedy:
                 fringe.sort(by: { (node1, node2) -> Bool in
                     return node1.distanceToFinal < node2.distanceToFinal
                 })
-            case 2:
+            case .uniform:
                 fringe.sort(by: { (node1, node2) -> Bool in
                     return node1.previousCost! < node2.previousCost!
                 })
-            default:
-                print("Largura")
+            case .breadth:
+                break
+            
             }
-            
-            
-            
             
             let selectedNode = self.fringe.removeFirst()
             

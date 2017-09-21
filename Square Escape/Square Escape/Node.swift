@@ -31,7 +31,7 @@ class Node: NSObject {
         self.state = state
         self.father = father
         self.deep = deep
-        self.cost = cost + father.cost
+        self.cost = cost
         self.desc = "state: \(self.state), deep: \(self.deep)"
     }
     

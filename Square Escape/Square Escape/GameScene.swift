@@ -156,10 +156,8 @@ class GameScene: SKScene {
         astar.sizeOfSquares = self.sizeOfSquares
         astar.squareCenters = self.squareCenters
         
-        let path = astar.findPath(type: self.search)
-        
-        print(path)
-        
+        let path = astar.findPath(type: SearchType(rawValue: self.search)!)
+            
         for node in tempLineNodes {
             node.removeFromParent()
         }
