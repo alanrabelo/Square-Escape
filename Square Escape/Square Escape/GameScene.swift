@@ -14,8 +14,8 @@ class GameScene: SKScene {
     
     var gameViewController : GameViewController!
     static var numberOfSquares = 10
-    let sizeOfSquaresMinor : CGFloat = 49
-    let sizeOfSquares : CGFloat = 50
+    let sizeOfSquaresMinor : CGFloat = 99
+    let sizeOfSquares : CGFloat = 100
     
     var entities = [GKEntity]()
     var graphs = [String : GKGraph]()
@@ -31,6 +31,8 @@ class GameScene: SKScene {
     var squareCenters : [CGPoint]!
     var tempLineNodes = [SKShapeNode]()
     var search = 0
+    var currentNode: ANode!
+    var astarAux: AStar!
     
     override func sceneDidLoad() {
         // -200 is added for a safety distance to initial and final positions
@@ -56,8 +58,6 @@ class GameScene: SKScene {
         self.finalHeight = CGFloat(arc4random_uniform((UInt32(self.heigth - self.heigth/2))))
         self.finalPosition = CGPoint(x: (self.width/2) + 50, y: finalHeight)
         self.vertices.append(self.finalPosition)
-        
-        print(self.finalPosition)
 
         self.lastUpdateTime = 0
         
@@ -102,6 +102,14 @@ class GameScene: SKScene {
             self.addChild(colorSprite)
             self.squareNodes.append(colorSprite)
         }
+        self.currentNode = ANode(withPosition: self.initialPosition.position, andDistanceToFinal: self.initialPosition.position.distance(toPoint: self.finalPosition))
+        let finalNode = ANode(withPosition: self.finalPosition, andDistanceToFinal: 0)
+        self.astarAux = AStar(withInitialPosition: self.currentNode, andFinalPosition: finalNode)
+        self.astarAux.width = self.width
+        self.astarAux.heigth = self.heigth
+        self.astarAux.vertices = self.vertices
+        self.astarAux.sizeOfSquares = self.sizeOfSquares
+        self.astarAux.squareCenters = self.squareCenters
         
     }
     
@@ -125,24 +133,93 @@ class GameScene: SKScene {
     var found = false
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
+//
         if found {
             found = false
-            
+
             DispatchQueue.main.async {
                 self.gameViewController.displayWonView(false)
-                
+
             }
             self.gameViewController.initializeGameScene()
             return
         }
+//
+//        self.generateTree()
+//
+//
+//
+//
+//        found = true
+    }
+    var shapes = [SKShapeNode]()
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for node in self.shapes {
+            node.removeFromParent()
+        }
+        self.shapes.removeAll()
         
-        self.generateTree()
+        let tap = touches.first?.location(in: self)
+        let path = CGMutablePath()
+        path.move(to: self.currentNode.position)
+        path.addLine(to: tap!)
         
-        
-
-        
-        found = true
+        let shape = SKShapeNode()
+        shape.path = path
+        shape.strokeColor = UIColor.blue
+        shape.lineWidth = 5
+        addChild(shape)
+        shapes.append(shape)
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let sucessors = self.astarAux.sucessorPoint(ofPoint: self.currentNode)
+        if let tap = touches.first?.location(in: self){
+            
+            
+            let sortedSuc = sucessors.sorted(by: { (node1, node2) -> Bool in
+                return node1.distance(toPoint: tap) < node2.distance(toPoint: tap)
+            })
+            
+            
+            for node in self.shapes {
+                node.removeFromParent()
+            }
+            self.shapes.removeAll()
+            
+            let path = CGMutablePath()
+            print(currentNode.position)
+            path.move(to: self.currentNode.position)
+            print(sortedSuc.first!)
+            path.addLine(to: sortedSuc.first!)
+            
+            let shape = SKShapeNode()
+            shape.path = path
+            shape.strokeColor = UIColor.blue
+            shape.lineWidth = 5
+            addChild(shape)
+            
+            
+            self.currentNode = ANode(withPosition: sortedSuc.first!, andDistanceToFinal: 0, andCost: 0)
+            
+            if self.currentNode.position == finalPosition{
+                if found {
+                    found = false
+                    
+                    DispatchQueue.main.async {
+                        self.gameViewController.displayWonView(false)
+                        
+                    }
+                    self.gameViewController.initializeGameScene()
+                    return
+                }
+                
+                self.generateTree()
+                
+                found = true
+            }
+            
+        }
     }
     
     func generateTree() {
@@ -157,8 +234,6 @@ class GameScene: SKScene {
         astar.squareCenters = self.squareCenters
         
         let path = astar.findPath(type: self.search)
-        
-        print(path)
         
         for node in tempLineNodes {
             node.removeFromParent()
@@ -180,7 +255,7 @@ class GameScene: SKScene {
             
             let shape = SKShapeNode()
             shape.path = path
-            shape.strokeColor = UIColor.blue
+            shape.strokeColor = UIColor.green
             shape.lineWidth = 5
             addChild(shape)
             //selectedDestinations.append(destination)

@@ -17,6 +17,7 @@ class ANode {
     var position : CGPoint
     var previousCost : CGFloat?
     var totalCostValue: CGFloat?
+    var visiteds: [CGPoint]?
     
     init(withPosition position : CGPoint, andDistanceToFinal distanceToFinal : CGFloat, andCost cost : CGFloat = 0) {
         
@@ -62,11 +63,10 @@ class AStar {
     
     var width, heigth : CGFloat!
     
-    
-    
     init(withInitialPosition initialPosition : ANode, andFinalPosition finalPosition : ANode, allowVisitHistory allow : Bool = true) {
         self.initialPosition = initialPosition
         self.initialPosition.previousCost = 0
+        self.initialPosition.visiteds = [CGPoint]()
         self.initialPosition.totalCostValue = self.initialPosition.distanceToFinal
         self.finalPosition = finalPosition
     }
@@ -77,12 +77,6 @@ class AStar {
         
         print("Started Searching")
         self.fringe.append(contentsOf: self.sucessor(ofPoint: initialPosition))
-        
-        
-        print(fringe.map({ (node) -> String in
-            return "\(node.previousCost!)"
-        }))
-        
         
         while fringe.count != 0 {
             
@@ -103,10 +97,15 @@ class AStar {
                 print("Largura")
             }
             
-            
-            
-            
-            let selectedNode = self.fringe.removeFirst()
+            var selectedNode = self.fringe.removeFirst()
+//            for i in fringe.reversed(){
+//                print(String(format: "%.2f, ", i.previousCost!), separator: "////", terminator: "")
+//            }
+//            if type == 1 || type == 2{
+//                selectedNode = self.verifyVisiteds(node: selectedNode)!
+//                //print(selectedNode.position)
+//            }
+            print(selectedNode.position)
             
             // Verifica se o nó é objetivo para procurar algum outro nó com valor menor que ele
             if selectedNode.isObjective(node: self.finalPosition) {
@@ -126,13 +125,13 @@ class AStar {
                 // Adiciona os sucessores do nó atual na borda
                 let sucessors = self.sucessor(ofPoint: selectedNode)
                 
-                self.fringe.append(contentsOf: sucessors)
+                //self.fringe.append(contentsOf: sucessors)
                 
-//                self.fringe.append(contentsOf: sucessors.filter({ (node1) -> Bool in
-//                    return !self.fringe.contains(where: { (node2) -> Bool in
-//                        return node2.position == node1.position
-//                    })
-//                }))
+                self.fringe.append(contentsOf: sucessors.filter({ (node1) -> Bool in
+                    return !self.fringe.contains(where: { (node2) -> Bool in
+                        return node2.position == node1.position
+                    })
+                }))
                 
             }
             
@@ -142,6 +141,17 @@ class AStar {
         
         
         return [ANode]()
+    }
+    
+    func verifyVisiteds(node: ANode) -> ANode?{
+        var mainNode: ANode?
+        if (node.visiteds?.contains(node.position))!{
+            let otherNode = self.fringe.removeFirst()
+            mainNode = verifyVisiteds(node: otherNode)
+        }else{
+            mainNode = node
+        }
+        return mainNode
     }
     
     func sucessor(ofPoint newPoint : ANode) -> [ANode] {
@@ -183,11 +193,12 @@ class AStar {
                     let nodeToBeAdded = ANode(withPosition: destination, andDistanceToFinal: destination.distance(toPoint: self.finalPosition.position))
                     nodeToBeAdded.parent = newPoint
                     nodeToBeAdded.cost = newPoint.position.distance(toPoint: nodeToBeAdded.position)
-                    //print(newPoint.totalCostValue!)
-                    //print(newPoint.distanceToFinal)
-                    print(newPoint.previousCost!)
                     nodeToBeAdded.previousCost = newPoint.previousCost! + nodeToBeAdded.cost
                     nodeToBeAdded.totalCostValue = nodeToBeAdded.previousCost! + nodeToBeAdded.distanceToFinal
+                    if let pai = nodeToBeAdded.parent{
+                        nodeToBeAdded.visiteds = pai.visiteds
+                        nodeToBeAdded.visiteds?.append(pai.position)
+                    }
                     nodes.append(nodeToBeAdded)
                     
                 }
@@ -196,6 +207,64 @@ class AStar {
         }
         
         return nodes
+        
+    }
+    
+    func sucessorPoint(ofPoint newPoint : ANode) -> [CGPoint] {
+        
+        var positions = [CGPoint]()
+        var nodes = [ANode]()
+        // Removing all nodes in an array of all lines drawn
+        
+        for destination in self.vertices {
+            
+            var intersections = [CGPoint]()
+            
+            
+            for square in squareCenters {
+                
+                let point1 = CGPoint(x: square.x - self.sizeOfSquares/2, y: square.y - self.sizeOfSquares/2)
+                let point2 = CGPoint(x: square.x + self.sizeOfSquares/2, y: square.y - self.sizeOfSquares/2)
+                let point3 = CGPoint(x: square.x - self.sizeOfSquares/2, y: square.y + self.sizeOfSquares/2)
+                let point4 = CGPoint(x: square.x + self.sizeOfSquares/2, y: square.y + self.sizeOfSquares/2)
+                
+                let squareLines = [(point1, point2), (point2, point3), (point3, point4), (point4, point1)]
+                
+                for line in squareLines {
+                    
+                    let intersection = getIntersectionOfLines(line1: (newPoint.position, destination), line2: line)
+                    
+                    if intersection != CGPoint.zero {
+                        
+                        if !intersections.contains(intersection) {
+                            intersections.append(intersection)
+                        }
+                    }
+                }
+                
+            }
+            
+            if (intersections.count <= 1 && self.initialPosition.position == newPoint.position && self.finalPosition.position != destination) || (intersections.count <= 2 && self.initialPosition.position != newPoint.position && self.finalPosition.position != newPoint.position) && !(destination == self.finalPosition.position && intersections.count == 2) {
+                if destination != newPoint.position {
+                    
+                    let nodeToBeAdded = ANode(withPosition: destination, andDistanceToFinal: destination.distance(toPoint: self.finalPosition.position))
+                    nodeToBeAdded.parent = newPoint
+                    nodeToBeAdded.cost = newPoint.position.distance(toPoint: nodeToBeAdded.position)
+                    //nodeToBeAdded.previousCost = newPoint.previousCost! + nodeToBeAdded.cost
+                    //nodeToBeAdded.totalCostValue = nodeToBeAdded.previousCost! + nodeToBeAdded.distanceToFinal
+                    if let pai = nodeToBeAdded.parent{
+                        nodeToBeAdded.visiteds = pai.visiteds
+                        nodeToBeAdded.visiteds?.append(pai.position)
+                    }
+                    nodes.append(nodeToBeAdded)
+                    positions.append(nodeToBeAdded.position)
+                    
+                }
+            }
+            
+        }
+        
+        return positions
         
     }
 
