@@ -10,6 +10,16 @@
 		6A262C871F62DB3C00098155 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A262C861F62DB3C00098155 /* Queue.swift */; };
 		6A262C891F62DB5500098155 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A262C881F62DB5500098155 /* Stack.swift */; };
 		6A262C8B1F66C6C300098155 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A262C8A1F66C6C300098155 /* Node.swift */; };
+		E71C275F1F7939E9006CBB6F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71C275E1F7939E9006CBB6F /* AppDelegate.swift */; };
+		E71C27611F7939E9006CBB6F /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = E71C27601F7939E9006CBB6F /* art.scnassets */; };
+		E71C27631F7939E9006CBB6F /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71C27621F7939E9006CBB6F /* GameViewController.swift */; };
+		E71C27661F7939E9006CBB6F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E71C27641F7939E9006CBB6F /* Main.storyboard */; };
+		E71C27681F7939E9006CBB6F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E71C27671F7939E9006CBB6F /* Assets.xcassets */; };
+		E71C276B1F7939E9006CBB6F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E71C27691F7939E9006CBB6F /* LaunchScreen.storyboard */; };
+		E71C27701F793E78006CBB6F /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A262C861F62DB3C00098155 /* Queue.swift */; };
+		E71C27711F793E78006CBB6F /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A262C881F62DB5500098155 /* Stack.swift */; };
+		E71C27721F793E78006CBB6F /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A262C8A1F66C6C300098155 /* Node.swift */; };
+		E71C27731F793E78006CBB6F /* AStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75813151F6BFB3100D5602E /* AStar.swift */; };
 		E75001FA1F6C74190017E42B /* Square_EscapeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75001F91F6C74190017E42B /* Square_EscapeTests.swift */; };
 		E75813161F6BFB3100D5602E /* AStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75813151F6BFB3100D5602E /* AStar.swift */; };
 		E78DB9271F5DBD6300C60ACF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78DB9261F5DBD6300C60ACF /* AppDelegate.swift */; };
@@ -36,6 +46,14 @@
 		6A262C861F62DB3C00098155 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		6A262C881F62DB5500098155 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		6A262C8A1F66C6C300098155 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
+		E71C275C1F7939E9006CBB6F /* Square 3d.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Square 3d.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E71C275E1F7939E9006CBB6F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		E71C27601F7939E9006CBB6F /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
+		E71C27621F7939E9006CBB6F /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		E71C27651F7939E9006CBB6F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E71C27671F7939E9006CBB6F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E71C276A1F7939E9006CBB6F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E71C276C1F7939E9006CBB6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E75001F71F6C74190017E42B /* Square EscapeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Square EscapeTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E75001F91F6C74190017E42B /* Square_EscapeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Square_EscapeTests.swift; sourceTree = "<group>"; };
 		E75001FB1F6C74190017E42B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -53,6 +71,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		E71C27591F7939E9006CBB6F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E75001F41F6C74190017E42B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -81,6 +106,20 @@
 			name = "Data Structures";
 			sourceTree = "<group>";
 		};
+		E71C275D1F7939E9006CBB6F /* Square 3d */ = {
+			isa = PBXGroup;
+			children = (
+				E71C275E1F7939E9006CBB6F /* AppDelegate.swift */,
+				E71C27601F7939E9006CBB6F /* art.scnassets */,
+				E71C27621F7939E9006CBB6F /* GameViewController.swift */,
+				E71C27641F7939E9006CBB6F /* Main.storyboard */,
+				E71C27671F7939E9006CBB6F /* Assets.xcassets */,
+				E71C27691F7939E9006CBB6F /* LaunchScreen.storyboard */,
+				E71C276C1F7939E9006CBB6F /* Info.plist */,
+			);
+			path = "Square 3d";
+			sourceTree = "<group>";
+		};
 		E75001F81F6C74190017E42B /* Square EscapeTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -95,6 +134,7 @@
 			children = (
 				E78DB9251F5DBD6300C60ACF /* Square Escape */,
 				E75001F81F6C74190017E42B /* Square EscapeTests */,
+				E71C275D1F7939E9006CBB6F /* Square 3d */,
 				E78DB9241F5DBD6300C60ACF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -104,6 +144,7 @@
 			children = (
 				E78DB9231F5DBD6300C60ACF /* Square Escape.app */,
 				E75001F71F6C74190017E42B /* Square EscapeTests.xctest */,
+				E71C275C1F7939E9006CBB6F /* Square 3d.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -128,6 +169,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		E71C275B1F7939E9006CBB6F /* Square 3d */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E71C276D1F7939E9006CBB6F /* Build configuration list for PBXNativeTarget "Square 3d" */;
+			buildPhases = (
+				E71C27581F7939E9006CBB6F /* Sources */,
+				E71C27591F7939E9006CBB6F /* Frameworks */,
+				E71C275A1F7939E9006CBB6F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Square 3d";
+			productName = "Square 3d";
+			productReference = E71C275C1F7939E9006CBB6F /* Square 3d.app */;
+			productType = "com.apple.product-type.application";
+		};
 		E75001F61F6C74190017E42B /* Square EscapeTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E75002001F6C74190017E42B /* Build configuration list for PBXNativeTarget "Square EscapeTests" */;
@@ -169,10 +227,15 @@
 		E78DB91B1F5DBD6300C60ACF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0830;
+				LastSwiftUpdateCheck = 0900;
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = alanrabelo;
 				TargetAttributes = {
+					E71C275B1F7939E9006CBB6F = {
+						CreatedOnToolsVersion = 9.0;
+						DevelopmentTeam = QMRXG7JS2X;
+						ProvisioningStyle = Automatic;
+					};
 					E75001F61F6C74190017E42B = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = QMRXG7JS2X;
@@ -181,7 +244,7 @@
 					};
 					E78DB9221F5DBD6300C60ACF = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = Q922D8LNNZ;
+						DevelopmentTeam = QMRXG7JS2X;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -201,11 +264,23 @@
 			targets = (
 				E78DB9221F5DBD6300C60ACF /* Square Escape */,
 				E75001F61F6C74190017E42B /* Square EscapeTests */,
+				E71C275B1F7939E9006CBB6F /* Square 3d */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		E71C275A1F7939E9006CBB6F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E71C27611F7939E9006CBB6F /* art.scnassets in Resources */,
+				E71C276B1F7939E9006CBB6F /* LaunchScreen.storyboard in Resources */,
+				E71C27681F7939E9006CBB6F /* Assets.xcassets in Resources */,
+				E71C27661F7939E9006CBB6F /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E75001F51F6C74190017E42B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -228,6 +303,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		E71C27581F7939E9006CBB6F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E71C27711F793E78006CBB6F /* Stack.swift in Sources */,
+				E71C27721F793E78006CBB6F /* Node.swift in Sources */,
+				E71C27631F7939E9006CBB6F /* GameViewController.swift in Sources */,
+				E71C27731F793E78006CBB6F /* AStar.swift in Sources */,
+				E71C27701F793E78006CBB6F /* Queue.swift in Sources */,
+				E71C275F1F7939E9006CBB6F /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E75001F31F6C74190017E42B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -261,6 +349,22 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		E71C27641F7939E9006CBB6F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E71C27651F7939E9006CBB6F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		E71C27691F7939E9006CBB6F /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E71C276A1F7939E9006CBB6F /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
 		E78DB9301F5DBD6300C60ACF /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -280,6 +384,58 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		E71C276E1F7939E9006CBB6F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = QMRXG7JS2X;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "Square 3d/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.alanrabelo.Square-3d";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E71C276F1F7939E9006CBB6F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = QMRXG7JS2X;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "Square 3d/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.alanrabelo.Square-3d";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		E75001FE1F6C74190017E42B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -405,7 +561,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = Q922D8LNNZ;
+				DEVELOPMENT_TEAM = QMRXG7JS2X;
 				INFOPLIST_FILE = "Square Escape/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -419,7 +575,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = Q922D8LNNZ;
+				DEVELOPMENT_TEAM = QMRXG7JS2X;
 				INFOPLIST_FILE = "Square Escape/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -432,6 +588,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		E71C276D1F7939E9006CBB6F /* Build configuration list for PBXNativeTarget "Square 3d" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E71C276E1F7939E9006CBB6F /* Debug */,
+				E71C276F1F7939E9006CBB6F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		E75002001F6C74190017E42B /* Build configuration list for PBXNativeTarget "Square EscapeTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

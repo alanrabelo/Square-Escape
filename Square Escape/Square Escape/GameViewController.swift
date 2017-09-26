@@ -92,9 +92,6 @@ class GameViewController: UIViewController {
                 if let view = self.view as! SKView? {
                     view.presentScene(sceneNode)
                     view.ignoresSiblingOrder = true
-                    
-                    view.showsFPS = true
-                    view.showsNodeCount = true
                 }
             }
         }
@@ -109,7 +106,7 @@ extension GameViewController: UIPickerViewDelegate,UIPickerViewDataSource{
         if component == 0 {
             return 4
         }else{
-            return 100
+            return 49
         }
     }
     
@@ -118,7 +115,7 @@ extension GameViewController: UIPickerViewDelegate,UIPickerViewDataSource{
             let title = buscas[row]
             return title
         }else{
-            return "\(row)"
+            return "\(row + 1)"
         }
         
     }
@@ -128,7 +125,7 @@ extension GameViewController: UIPickerViewDelegate,UIPickerViewDataSource{
             self.op = row
         }
         if component == 1{
-            GameViewController.squares = row
+            GameViewController.squares = row + 1
         }
         
     }

@@ -40,6 +40,7 @@ class GameScene: SKScene {
         self.heigth = self.size.height - 200
         GameViewController.setNumberSquares()
         self.addSquares(withCount: GameScene.numberOfSquares)
+        
     }
     
     func addSquares(withCount count : Int) {
@@ -51,7 +52,7 @@ class GameScene: SKScene {
         self.squareNodes.removeAll()
         self.squareCenters = [CGPoint]()
         self.vertices.removeAll()
-        for node in self.children {
+        for node in self.children where node.name != "background" {
             node.removeFromParent()
         }
         self.startHeight = CGFloat(arc4random_uniform((UInt32(self.heigth - self.heigth/2))))
@@ -66,14 +67,13 @@ class GameScene: SKScene {
 
         self.addChild(initialPosition)
         
-        let finalPosition = SKSpriteNode(color: .blue, size: CGSize.init(width: sizeOfSquaresMinor/2, height: sizeOfSquaresMinor/2))
+        let finalPosition = SKSpriteNode(color: #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1), size: CGSize.init(width: sizeOfSquaresMinor/2, height: sizeOfSquaresMinor/2))
         finalPosition.position = self.finalPosition
         self.addChild(finalPosition)
         
-        //Generating random sprites
         for _ in 0..<GameScene.numberOfSquares {
             
-            let colorSprite = SKSpriteNode(color: .red, size: CGSize.init(width: sizeOfSquaresMinor, height: sizeOfSquaresMinor))
+            let colorSprite = SKSpriteNode(color: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), size: CGSize.init(width: sizeOfSquaresMinor, height: sizeOfSquaresMinor))
             
             var position : CGPoint = getRandomPosition()
             
@@ -97,11 +97,11 @@ class GameScene: SKScene {
             let vertices = [CGPoint(x: colorSprite.position.x - self.sizeOfSquares/2, y: colorSprite.position.y - self.sizeOfSquares/2), CGPoint(x: colorSprite.position.x + self.sizeOfSquares/2, y: colorSprite.position.y - self.sizeOfSquares/2), CGPoint(x: colorSprite.position.x - self.sizeOfSquares/2, y: colorSprite.position.y + self.sizeOfSquares/2), CGPoint(x: colorSprite.position.x + self.sizeOfSquares/2, y: colorSprite.position.y + self.sizeOfSquares/2)]
             
             self.vertices.append(contentsOf: vertices)
-            
-            //            colorSprite.run(SKAction.fadeIn(withDuration: 2))
             self.addChild(colorSprite)
             self.squareNodes.append(colorSprite)
         }
+        
+        self.vertices.append(self.finalPosition)
         self.currentNode = ANode(withPosition: self.initialPosition.position, andDistanceToFinal: self.initialPosition.position.distance(toPoint: self.finalPosition))
         let finalNode = ANode(withPosition: self.finalPosition, andDistanceToFinal: 0)
         self.astarAux = AStar(withInitialPosition: self.currentNode, andFinalPosition: finalNode)
@@ -139,18 +139,11 @@ class GameScene: SKScene {
 
             DispatchQueue.main.async {
                 self.gameViewController.displayWonView(false)
-
             }
             self.gameViewController.initializeGameScene()
             return
         }
-//
-//        self.generateTree()
-//
-//
-//
-//
-//        found = true
+
     }
     var shapes = [SKShapeNode]()
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -188,21 +181,21 @@ class GameScene: SKScene {
             self.shapes.removeAll()
             
             let path = CGMutablePath()
-            print(currentNode.position)
             path.move(to: self.currentNode.position)
-            print(sortedSuc.first!)
-            path.addLine(to: sortedSuc.first!)
             
-            let shape = SKShapeNode()
-            shape.path = path
-            shape.strokeColor = UIColor.blue
-            shape.lineWidth = 5
-            addChild(shape)
-            
+            if let suc = sortedSuc.first {
+                path.addLine(to: suc)
+                let shape = SKShapeNode()
+                shape.path = path
+                shape.strokeColor = UIColor.blue
+                shape.lineWidth = 5
+                addChild(shape)
+            }
             
             self.currentNode = ANode(withPosition: sortedSuc.first!, andDistanceToFinal: 0, andCost: 0)
             
             if self.currentNode.position == finalPosition{
+                
                 if found {
                     found = false
                     

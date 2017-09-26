@@ -98,17 +98,11 @@ class AStar {
             }
             
             var selectedNode = self.fringe.removeFirst()
-//            for i in fringe.reversed(){
-//                print(String(format: "%.2f, ", i.previousCost!), separator: "////", terminator: "")
-//            }
-//            if type == 1 || type == 2{
-//                selectedNode = self.verifyVisiteds(node: selectedNode)!
-//                //print(selectedNode.position)
-//            }
-            print(selectedNode.position)
             
             // Verifica se o nó é objetivo para procurar algum outro nó com valor menor que ele
             if selectedNode.isObjective(node: self.finalPosition) {
+                
+                print("Found")
                 
                 var currentNode : ANode? = selectedNode
                 var path = [ANode]()
@@ -187,7 +181,7 @@ class AStar {
                 
             }
             
-            if (intersections.count <= 1 && self.initialPosition.position == newPoint.position && self.finalPosition.position != destination) || (intersections.count <= 2 && self.initialPosition.position != newPoint.position && self.finalPosition.position != newPoint.position) && !(destination == self.finalPosition.position && intersections.count == 2) {
+            if ((intersections.count <= 1 && self.initialPosition.position == newPoint.position && self.finalPosition.position != destination) || (intersections.count <= 2 && self.initialPosition.position != newPoint.position && self.finalPosition.position != newPoint.position) && !(destination == self.finalPosition.position && intersections.count == 2)) || ((newPoint.position == self.initialPosition.position && destination == self.finalPosition.position) && intersections.count <= 1) {
                 if destination != newPoint.position {
                     
                     let nodeToBeAdded = ANode(withPosition: destination, andDistanceToFinal: destination.distance(toPoint: self.finalPosition.position))
@@ -205,6 +199,7 @@ class AStar {
             }
             
         }
+        
         
         return nodes
         
