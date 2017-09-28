@@ -23,15 +23,22 @@ class GameViewController: UIViewController {
     let buscas = ["AStar", "Busca Gulosa", "Custo Uniforme" ,"Largura"]
     var op = 0
     static var squares = 10
+    static let defaults = UserDefaults.standard
     
     @IBAction func restartGame(_ sender: UIButton) {
         displayWonView(true)
-        GameScene.numberOfSquares = GameViewController.squares
+        //GameScene.numberOfSquares = GameViewController.squares
+        let qtd = GameViewController.defaults.integer(forKey: "stage")
+        GameScene.numberOfSquares = Int(qtd/10) + 3
+        print(GameScene.numberOfSquares)
         self.initializeGameScene()
     }
     
     static func setNumberSquares(){
-        GameScene.numberOfSquares = squares
+        //GameScene.numberOfSquares = squares
+        let qtd = GameViewController.defaults.integer(forKey: "stage")
+        GameScene.numberOfSquares = Int(qtd/10) + 3
+        print(GameScene.numberOfSquares)
     }
     
     func displayWonView(_ isHidden : Bool) {

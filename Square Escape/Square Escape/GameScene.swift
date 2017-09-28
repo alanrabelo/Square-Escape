@@ -31,10 +31,16 @@ class GameScene: SKScene {
     var squareCenters : [CGPoint]!
     var tempLineNodes = [SKShapeNode]()
     var search = 0
+    var count = 0
     var currentNode: ANode!
     var astarAux: AStar!
+    let defaults = UserDefaults.standard
+    var currentCost = 0
     
     override func sceneDidLoad() {
+        let stage = defaults.integer(forKey: "stage")
+        self.count = stage
+        
         // -200 is added for a safety distance to initial and final positions
         self.width = self.size.width - 200
         self.heigth = self.size.height - 200
@@ -208,7 +214,7 @@ class GameScene: SKScene {
                 }
                 
                 self.generateTree()
-                
+                defaults.set(self.count+1, forKey: "stage")
                 found = true
             }
             
@@ -226,7 +232,7 @@ class GameScene: SKScene {
         astar.sizeOfSquares = self.sizeOfSquares
         astar.squareCenters = self.squareCenters
         
-        let path = astar.findPath(type: self.search)
+        let path = astar.findPath(type: self.count%4)
         
         for node in tempLineNodes {
             node.removeFromParent()

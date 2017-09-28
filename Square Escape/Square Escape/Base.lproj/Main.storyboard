@@ -42,7 +42,7 @@
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ue8-wt-fvy">
+                                                    <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ue8-wt-fvy">
                                                         <rect key="frame" x="0.0" y="17" width="667" height="138"/>
                                                         <color key="tintColor" white="0.052408854169999998" alpha="1" colorSpace="calibratedWhite"/>
                                                     </pickerView>
