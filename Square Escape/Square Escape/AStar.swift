@@ -104,6 +104,8 @@ class AStar {
                 
                 print("Found")
                 
+                GameScene.machineCost = Double(selectedNode.summedCost())
+                
                 var currentNode : ANode? = selectedNode
                 var path = [ANode]()
                 
@@ -239,7 +241,7 @@ class AStar {
                 
             }
             
-            if (intersections.count <= 1 && self.initialPosition.position == newPoint.position && self.finalPosition.position != destination) || (intersections.count <= 2 && self.initialPosition.position != newPoint.position && self.finalPosition.position != newPoint.position) && !(destination == self.finalPosition.position && intersections.count == 2) {
+            if (intersections.count <= 1 && self.initialPosition.position == newPoint.position) || (intersections.count <= 2 && self.initialPosition.position != newPoint.position && self.finalPosition.position != newPoint.position) && !(destination == self.finalPosition.position && intersections.count == 2) {
                 if destination != newPoint.position {
                     
                     let nodeToBeAdded = ANode(withPosition: destination, andDistanceToFinal: destination.distance(toPoint: self.finalPosition.position))

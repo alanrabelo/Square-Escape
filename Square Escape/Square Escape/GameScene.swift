@@ -35,11 +35,13 @@ class GameScene: SKScene {
     var currentNode: ANode!
     var astarAux: AStar!
     let defaults = UserDefaults.standard
-    var currentCost = 0
+    var currentCost = 0.0
+    static var machineCost = 0.0
     
     override func sceneDidLoad() {
         let stage = defaults.integer(forKey: "stage")
         self.count = stage
+        //defaults.set(0, forKey: "stage")
         
         // -200 is added for a safety distance to initial and final positions
         self.width = self.size.width - 200
@@ -144,7 +146,8 @@ class GameScene: SKScene {
             found = false
 
             DispatchQueue.main.async {
-                self.gameViewController.displayWonView(false)
+                print(self.currentCost)
+                self.gameViewController.displayWonView(false, machineCost: GameScene.machineCost, userCost: self.currentCost)
             }
             self.gameViewController.initializeGameScene()
             return
@@ -191,6 +194,7 @@ class GameScene: SKScene {
             
             if let suc = sortedSuc.first {
                 path.addLine(to: suc)
+                self.currentCost = self.currentCost + Double(self.currentNode.position.distance(toPoint: suc))
                 let shape = SKShapeNode()
                 shape.path = path
                 shape.strokeColor = UIColor.blue
@@ -206,7 +210,8 @@ class GameScene: SKScene {
                     found = false
                     
                     DispatchQueue.main.async {
-                        self.gameViewController.displayWonView(false)
+                        print(self.currentCost)
+                        self.gameViewController.displayWonView(false, machineCost: GameScene.machineCost, userCost: self.currentCost)
                         
                     }
                     self.gameViewController.initializeGameScene()
@@ -215,6 +220,7 @@ class GameScene: SKScene {
                 
                 self.generateTree()
                 defaults.set(self.count+1, forKey: "stage")
+                print(self.count)
                 found = true
             }
             

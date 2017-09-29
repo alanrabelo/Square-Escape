@@ -19,6 +19,8 @@ class GameViewController: UIViewController {
     @IBOutlet weak var blurView: UIVisualEffectView!
     @IBOutlet weak var buttonPlayAgain: UIButton!
     @IBOutlet weak var picker: UIPickerView!
+    @IBOutlet weak var scoreUser: UILabel!
+    @IBOutlet weak var scoreMachine: UILabel!
     
     let buscas = ["AStar", "Busca Gulosa", "Custo Uniforme" ,"Largura"]
     var op = 0
@@ -37,14 +39,20 @@ class GameViewController: UIViewController {
     static func setNumberSquares(){
         //GameScene.numberOfSquares = squares
         let qtd = GameViewController.defaults.integer(forKey: "stage")
-        GameScene.numberOfSquares = Int(qtd/10) + 3
-        print(GameScene.numberOfSquares)
+        GameScene.numberOfSquares = (Int(qtd/10)+1) * 3
+    }
+    
+    func displayWonView(_ isHidden : Bool, machineCost: Double, userCost: Double) {
+        self.buttonPlayAgain.isHidden = isHidden
+        self.blurView.isHidden = isHidden
+        self.scoreUser.text = String(format: "%.2f", userCost)
+        self.scoreMachine.text = String(format: "%.2f", machineCost)
+        
     }
     
     func displayWonView(_ isHidden : Bool) {
         self.buttonPlayAgain.isHidden = isHidden
         self.blurView.isHidden = isHidden
-        
     }
     
     override func viewDidLoad() {
