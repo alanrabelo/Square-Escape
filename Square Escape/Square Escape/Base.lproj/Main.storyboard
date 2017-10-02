@@ -33,7 +33,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You Won!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wrk-ys-ZBN">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You Won!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wrk-ys-ZBN">
                                                         <rect key="frame" x="8" y="162.5" width="651" height="50"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="50" id="6kU-85-59d"/>
@@ -152,6 +152,7 @@
                     <connections>
                         <outlet property="blurView" destination="P0V-E3-XA5" id="Afe-Fz-Sw7"/>
                         <outlet property="buttonPlayAgain" destination="h6U-Qc-cct" id="WWT-zQ-uzS"/>
+                        <outlet property="labelResult" destination="Wrk-ys-ZBN" id="hZE-KT-YQ2"/>
                         <outlet property="picker" destination="Ue8-wt-fvy" id="eAw-61-fpL"/>
                         <outlet property="scoreMachine" destination="LED-zb-2bc" id="pA5-za-1ou"/>
                         <outlet property="scoreUser" destination="fcn-LK-LoR" id="le2-X1-Egq"/>
@@ -160,6 +161,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="136.28185907046478" y="135.19999999999999"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="fcA-oS-9Pg">
+            <objects>
+                <viewController id="F1e-Ec-1VY" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aRx-99-HNy"/>
+                        <viewControllerLayoutGuide type="bottom" id="Hhe-Jw-HwB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gUO-rD-DVH">
+                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stage 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M3L-TR-VN8">
+                                <rect key="frame" x="240.5" y="152" width="187.5" height="72"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="60"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="M3L-TR-VN8" firstAttribute="centerY" secondItem="gUO-rD-DVH" secondAttribute="centerY" id="PgR-Xz-shi"/>
+                            <constraint firstItem="M3L-TR-VN8" firstAttribute="centerX" secondItem="gUO-rD-DVH" secondAttribute="centerX" id="ecd-5H-ftp"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="geS-PZ-LXc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="767.76611694152928" y="135.19999999999999"/>
         </scene>
     </scenes>
 </document>

@@ -21,6 +21,7 @@ class GameViewController: UIViewController {
     @IBOutlet weak var picker: UIPickerView!
     @IBOutlet weak var scoreUser: UILabel!
     @IBOutlet weak var scoreMachine: UILabel!
+    @IBOutlet weak var labelResult: UILabel!
     
     let buscas = ["AStar", "Busca Gulosa", "Custo Uniforme" ,"Largura"]
     var op = 0
@@ -47,7 +48,11 @@ class GameViewController: UIViewController {
         self.blurView.isHidden = isHidden
         self.scoreUser.text = String(format: "%.2f", userCost)
         self.scoreMachine.text = String(format: "%.2f", machineCost)
-        
+        if userCost > machineCost {
+            self.labelResult.text = "You Lose"
+            let qtd = GameViewController.defaults.integer(forKey: "stage")
+            GameViewController.defaults.set(qtd-1, forKey: "stage")
+        }
     }
     
     func displayWonView(_ isHidden : Bool) {
@@ -105,7 +110,8 @@ class GameViewController: UIViewController {
                 
                 // Present the scene
                 if let view = self.view as! SKView? {
-                    view.presentScene(sceneNode)
+                    let reveal = SKTransition.fade(with: .blue, duration: 1)
+                    view.presentScene(sceneNode, transition: reveal)
                     view.ignoresSiblingOrder = true
                 }
             }
