@@ -12,7 +12,7 @@
         <!--Game View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
-                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModule="Square_Escape" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="game" id="BV1-FR-VrT" customClass="GameViewController" customModule="Square_Escape" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8aa-yV-Osq"/>
                         <viewControllerLayoutGuide type="bottom" id="qHh-Mt-9TT"/>
@@ -165,7 +165,7 @@
         <!--View Controller-->
         <scene sceneID="fcA-oS-9Pg">
             <objects>
-                <viewController id="F1e-Ec-1VY" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StageView" id="F1e-Ec-1VY" customClass="ViewController" customModule="Square_Escape" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aRx-99-HNy"/>
                         <viewControllerLayoutGuide type="bottom" id="Hhe-Jw-HwB"/>
@@ -187,6 +187,9 @@
                             <constraint firstItem="M3L-TR-VN8" firstAttribute="centerX" secondItem="gUO-rD-DVH" secondAttribute="centerX" id="ecd-5H-ftp"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="labelStage" destination="M3L-TR-VN8" id="q8k-Aj-Avo"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="geS-PZ-LXc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -27,11 +27,11 @@ class GameViewController: UIViewController {
     var op = 0
     static var squares = 10
     static let defaults = UserDefaults.standard
+    let qtd = GameViewController.defaults.integer(forKey: "stage")
     
     @IBAction func restartGame(_ sender: UIButton) {
         displayWonView(true)
         //GameScene.numberOfSquares = GameViewController.squares
-        let qtd = GameViewController.defaults.integer(forKey: "stage")
         GameScene.numberOfSquares = Int(qtd/10) + 3
         print(GameScene.numberOfSquares)
         self.initializeGameScene()
@@ -39,8 +39,8 @@ class GameViewController: UIViewController {
     
     static func setNumberSquares(){
         //GameScene.numberOfSquares = squares
-        let qtd = GameViewController.defaults.integer(forKey: "stage")
-        GameScene.numberOfSquares = (Int(qtd/10)+1) * 3
+        let qtde = GameViewController.defaults.integer(forKey: "stage")
+        GameScene.numberOfSquares = (Int(qtde/10)+1) * 3
     }
     
     func displayWonView(_ isHidden : Bool, machineCost: Double, userCost: Double) {
@@ -50,7 +50,7 @@ class GameViewController: UIViewController {
         self.scoreMachine.text = String(format: "%.2f", machineCost)
         if userCost > machineCost {
             self.labelResult.text = "You Lose"
-            let qtd = GameViewController.defaults.integer(forKey: "stage")
+            //let qtd = GameViewController.defaults.integer(forKey: "stage")
             GameViewController.defaults.set(qtd-1, forKey: "stage")
         }
     }
@@ -62,7 +62,6 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.picker.delegate = self
         self.picker.dataSource = self
         self.picker.selectRow(10, inComponent: 1, animated: true)
@@ -110,7 +109,7 @@ class GameViewController: UIViewController {
                 
                 // Present the scene
                 if let view = self.view as! SKView? {
-                    let reveal = SKTransition.fade(with: .blue, duration: 1)
+                    let reveal = SKTransition.fade(with: .blue, duration: 0.5)
                     view.presentScene(sceneNode, transition: reveal)
                     view.ignoresSiblingOrder = true
                 }
